@@ -20,7 +20,6 @@
         }
 
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-
         html { scroll-behavior: smooth; }
 
         body {
@@ -33,7 +32,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ===== ANIMATED BACKGROUND ===== */
+        /* ===== BACKGROUND ANIMATIONS ===== */
         .bg {
             position: fixed; inset: 0; z-index: 0;
             background:
@@ -57,12 +56,8 @@
             100% { transform: translate(60px,60px); }
         }
 
-        /* Floating orbs */
         .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 0;
+            position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0;
             animation: orbFloat 20s ease-in-out infinite;
         }
         .orb-1 { width:300px;height:300px;background:rgba(255,215,0,0.07);top:-100px;right:-100px;animation-delay:0s; }
@@ -76,880 +71,240 @@
             75% { transform: translate(40px,20px) scale(1.05); }
         }
 
-        /* ===== MAIN CONTAINER ===== */
         .app {
-            position: relative;
-            z-index: 1;
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 16px;
-            padding-bottom: 100px;
+            position: relative; z-index: 1; max-width: 480px;
+            margin: 0 auto; padding: 16px; padding-bottom: 100px;
         }
 
         /* ===== HEADER ===== */
-        .header {
-            text-align: center;
-            padding: 20px 0 10px;
-        }
-
+        .header { text-align: center; padding: 20px 0 10px; }
         .bank-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-size: 0.7rem;
-            color: #888;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 14px; border-radius: 100px; font-size: 0.7rem; color: #888;
+            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
         }
-
         .bank-badge .dot {
-            width: 6px; height: 6px;
-            background: var(--orange);
-            border-radius: 50%;
+            width: 6px; height: 6px; background: var(--orange); border-radius: 50%;
             animation: blink 2s ease infinite;
         }
+        @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
 
-        @keyframes blink {
-            0%,100% { opacity:1; }
-            50% { opacity:0.3; }
-        }
-
-        .title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.6rem;
-            font-weight: 900;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-        }
-
+        .title { font-family: 'Orbitron', monospace; font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; }
         .title .line1 {
-            display: block;
-            background: linear-gradient(135deg, #fff 0%, #ccc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1rem;
-            font-weight: 600;
+            display: block; background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 1rem; font-weight: 600;
         }
-
         .title .line2 {
-            display: block;
-            background: linear-gradient(90deg, var(--gold), var(--orange), var(--gold));
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
-            font-size: 1.8rem;
+            display: block; background: linear-gradient(90deg, var(--gold), var(--orange), var(--gold));
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite; font-size: 1.8rem;
         }
+        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
 
-        @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
-        }
-
-        .contract-info {
-            margin-top: 10px;
-            font-size: 0.75rem;
-            color: #555;
-        }
-
+        .contract-info { margin-top: 10px; font-size: 0.75rem; color: #555; }
         .contract-info span { color: var(--green); font-weight: 600; }
 
-        /* ===== LIVE CLOCK ===== */
         .live-clock {
-            text-align: center;
-            padding: 8px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: #444;
-            letter-spacing: 2px;
+            text-align: center; padding: 8px; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; color: #444; letter-spacing: 2px;
         }
 
         /* ===== MAIN COUNTDOWN ===== */
         .countdown-card {
-            position: relative;
-            background: rgba(255,215,0,0.02);
-            border: 1px solid rgba(255,215,0,0.15);
-            border-radius: 24px;
-            padding: 28px 20px;
-            margin: 16px 0;
-            overflow: hidden;
+            position: relative; background: rgba(255,215,0,0.02);
+            border: 1px solid rgba(255,215,0,0.15); border-radius: 24px;
+            padding: 28px 20px; margin: 16px 0; overflow: hidden;
         }
-
         .countdown-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 200%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 200%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,215,0,0.05), transparent);
             animation: cardSweep 4s ease-in-out infinite;
         }
+        @keyframes cardSweep { 0% { transform: translateX(-50%); } 100% { transform: translateX(50%); } }
 
-        @keyframes cardSweep {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(50%); }
-        }
-
-        .countdown-label {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-        }
-
-        .countdown-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-        }
-
-        .cd-item {
-            text-align: center;
-            position: relative;
-        }
-
+        .countdown-label { text-align: center; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
+        .countdown-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .cd-item { text-align: center; position: relative; }
         .cd-num {
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: 1.8rem;
-            color: var(--gold);
-            line-height: 1;
-            text-shadow: 0 0 30px rgba(255,215,0,0.3);
-            transition: all 0.3s;
-            position: relative;
+            font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.8rem;
+            color: var(--gold); line-height: 1; text-shadow: 0 0 30px rgba(255,215,0,0.3);
+            transition: all 0.3s; position: relative;
         }
+        .cd-num.tick { animation: tickPulse 0.6s ease; }
+        @keyframes tickPulse { 0% { transform: scale(1); } 30% { transform: scale(1.15); color: #fff; text-shadow: 0 0 40px rgba(255,215,0,0.8); } 100% { transform: scale(1); } }
+        .cd-lbl { font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
 
-        .cd-num.tick {
-            animation: tickPulse 0.6s ease;
-        }
-
-        @keyframes tickPulse {
-            0% { transform: scale(1); }
-            30% { transform: scale(1.15); color: #fff; text-shadow: 0 0 40px rgba(255,215,0,0.8); }
-            100% { transform: scale(1); }
-        }
-
-        .cd-lbl {
-            font-size: 0.55rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 6px;
-        }
-
-        .cd-separator {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            color: rgba(255,215,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: separatorBlink 1s ease infinite;
-            padding-bottom: 18px;
-        }
-
-        @keyframes separatorBlink {
-            0%,100% { opacity: 1; }
-            50% { opacity: 0.2; }
-        }
-
-        .freedom-date-text {
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--gold);
-            margin-top: 16px;
-            font-weight: 600;
-            opacity: 0.8;
-        }
-
-        /* ===== SECONDS VISUALIZER ===== */
-        .seconds-ring {
-            display: flex;
-            justify-content: center;
-            margin: -5px 0 10px;
-        }
-
-        .seconds-ring svg {
-            width: 80px; height: 80px;
-            transform: rotate(-90deg);
-        }
-
-        .seconds-ring .ring-bg {
-            fill: none;
-            stroke: rgba(255,255,255,0.05);
-            stroke-width: 3;
-        }
-
+        /* ===== SECONDS CIRCLE ===== */
+        .seconds-ring { display: flex; justify-content: center; margin: -5px 0 10px; }
+        .seconds-ring svg { width: 80px; height: 80px; transform: rotate(-90deg); }
+        .seconds-ring .ring-bg { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 3; }
         .seconds-ring .ring-fill {
-            fill: none;
-            stroke: var(--gold);
-            stroke-width: 3;
-            stroke-linecap: round;
-            stroke-dasharray: 220;
-            stroke-dashoffset: 220;
-            transition: stroke-dashoffset 0.3s linear;
+            fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round;
+            stroke-dasharray: 220; stroke-dashoffset: 220; transition: stroke-dashoffset 0.3s linear;
             filter: drop-shadow(0 0 6px rgba(255,215,0,0.4));
         }
-
-        .seconds-ring .ring-text {
-            font-family: 'Orbitron', monospace;
-            font-size: 16px;
-            fill: var(--gold);
-            text-anchor: middle;
-            dominant-baseline: central;
-            font-weight: 900;
-        }
-
-        .seconds-ring .ring-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 5px;
-            fill: #666;
-            text-anchor: middle;
-            dominant-baseline: central;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .seconds-ring .ring-text { font-family: 'Orbitron', monospace; font-size: 16px; fill: var(--gold); text-anchor: middle; dominant-baseline: central; font-weight: 900; }
+        .seconds-ring .ring-label { font-family: 'Inter', sans-serif; font-size: 5px; fill: #666; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 1px; }
 
         /* ===== HEARTBEAT LINE ===== */
-        .heartbeat-container {
-            padding: 0 0 10px;
-            overflow: hidden;
-            height: 40px;
-        }
-
-        .heartbeat-line {
-            stroke: var(--gold);
-            stroke-width: 2;
-            fill: none;
-            filter: drop-shadow(0 0 4px rgba(255,215,0,0.5));
-        }
-
-        .heartbeat-svg {
-            width: 100%;
-            height: 40px;
-        }
+        .heartbeat-container { padding: 0 0 10px; overflow: hidden; height: 40px; }
+        .heartbeat-line { stroke: var(--gold); stroke-width: 2; fill: none; filter: drop-shadow(0 0 4px rgba(255,215,0,0.5)); }
+        .heartbeat-svg { width: 100%; height: 40px; }
 
         /* ===== PROGRESS ===== */
-        .progress-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px 20px;
-            margin: 12px 0;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
-
-        .progress-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .progress-pct {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--green);
-        }
-
-        .progress-track {
-            height: 12px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 100px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            border-radius: 100px;
-            background: linear-gradient(90deg, var(--orange), var(--gold), var(--green));
-            position: relative;
-            transition: width 1s ease;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
-            animation: progressShine 2s ease infinite;
-        }
-
-        @keyframes progressShine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .progress-glow {
-            position: absolute;
-            right: -2px;
-            top: -4px;
-            width: 20px;
-            height: 20px;
-            background: var(--green);
-            border-radius: 50%;
-            filter: blur(8px);
-            animation: glowPulse 1.5s ease infinite;
-        }
-
-        @keyframes glowPulse {
-            0%,100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.3); }
-        }
-
-        .progress-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            font-size: 0.7rem;
-        }
-
+        .progress-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px 20px; margin: 12px 0; }
+        .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .progress-title { font-size: 0.85rem; font-weight: 600; }
+        .progress-pct { font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 900; color: var(--green); }
+        .progress-track { height: 12px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; position: relative; }
+        .progress-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--orange), var(--gold), var(--green)); position: relative; transition: width 1s ease; }
+        .progress-fill::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%); animation: progressShine 2s ease infinite; }
+        @keyframes progressShine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .progress-glow { position: absolute; right: -2px; top: -4px; width: 20px; height: 20px; background: var(--green); border-radius: 50%; filter: blur(8px); animation: glowPulse 1.5s ease infinite; }
+        @keyframes glowPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+        .progress-stats { display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.7rem; }
         .progress-stats .done { color: var(--green); }
         .progress-stats .left { color: var(--orange); }
 
-        /* ===== NEXT HOLIDAY ===== */
+        /* ===== NEXT HOLIDAY CARD ===== */
         .holiday-card {
             background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(255,215,0,0.08));
-            border: 1px solid rgba(255,107,53,0.2);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 12px 0;
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(255,107,53,0.2); border-radius: 20px;
+            padding: 20px; margin: 12px 0; position: relative; overflow: hidden;
         }
-
-        .holiday-card::after {
-            content: '🎉';
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2.5rem;
-            opacity: 0.15;
-        }
-
-        .hc-label {
-            font-size: 0.65rem;
-            color: var(--orange);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 6px;
-        }
-
-        .hc-name {
-            font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 4px;
-        }
-
-        .hc-date {
-            font-size: 0.75rem;
-            color: #888;
-            margin-bottom: 8px;
-        }
-
+        .holiday-card::after { content: '🎉'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 2.5rem; opacity: 0.15; }
+        .hc-label { font-size: 0.65rem; color: var(--orange); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+        .hc-name { font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+        .hc-date { font-size: 0.75rem; color: #888; margin-bottom: 8px; }
         .hc-days {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(255,107,53,0.2);
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--orange);
+            display: inline-flex; align-items: center; gap: 4px;
+            background: rgba(255,107,53,0.2); padding: 4px 12px; border-radius: 100px;
+            font-family: 'Orbitron', monospace; font-size: 0.8rem; font-weight: 700; color: var(--orange);
         }
 
         /* ===== STATS GRID ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 12px 0;
-        }
-
-        .stat {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 16px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .stat:active {
-            transform: scale(0.97);
-        }
-
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0; }
+        .stat { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; text-align: center; transition: all 0.3s; }
+        .stat:active { transform: scale(0.97); }
         .stat-icon { font-size: 1.5rem; margin-bottom: 6px; }
-
-        .stat-val {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--gold);
-        }
-
-        .stat-lbl {
-            font-size: 0.65rem;
-            color: #666;
-            margin-top: 3px;
-        }
-
-        .stat.highlight {
-            border-color: rgba(0,255,136,0.2);
-            background: rgba(0,255,136,0.03);
-        }
-
+        .stat-val { font-family: 'Orbitron', monospace; font-size: 1.3rem; font-weight: 800; color: var(--gold); }
+        .stat-lbl { font-size: 0.65rem; color: #666; margin-top: 3px; }
+        .stat.highlight { border-color: rgba(0,255,136,0.2); background: rgba(0,255,136,0.03); }
         .stat.highlight .stat-val { color: var(--green); }
-
-        .stat.warn {
-            border-color: rgba(255,107,53,0.2);
-            background: rgba(255,107,53,0.03);
-        }
-
+        .stat.warn { border-color: rgba(255,107,53,0.2); background: rgba(255,107,53,0.03); }
         .stat.warn .stat-val { color: var(--orange); }
 
         /* ===== MOTIVATION TICKER ===== */
         .ticker {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            margin: 12px 0;
-            text-align: center;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            -webkit-user-select: none;
-            user-select: none;
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 20px; margin: 12px 0; text-align: center; min-height: 120px;
+            display: flex; flex-direction: column; justify-content: center;
+            cursor: pointer; transition: all 0.3s; -webkit-user-select: none; user-select: none;
         }
-
         .ticker:active { transform: scale(0.98); }
+        .ticker-quote { font-size: 1rem; font-style: italic; color: var(--gold); line-height: 1.6; margin-bottom: 8px; }
+        .ticker-author { font-size: 0.75rem; color: #555; }
+        .ticker-hint { font-size: 0.6rem; color: #333; margin-top: 8px; }
 
-        .ticker-quote {
-            font-size: 1rem;
-            font-style: italic;
-            color: var(--gold);
-            line-height: 1.6;
-            margin-bottom: 8px;
-        }
-
-        .ticker-author {
-            font-size: 0.75rem;
-            color: #555;
-        }
-
-        .ticker-hint {
-            font-size: 0.6rem;
-            color: #333;
-            margin-top: 8px;
-        }
-
-        /* ===== HOLIDAY LIST ===== */
-        .section-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 12px 0;
-        }
-
-        .section-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
+        /* ===== LIST CARDS ===== */
+        .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin: 12px 0; }
+        .section-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
         .section-title .emoji { font-size: 1.1rem; }
 
         .h-list { max-height: 300px; overflow-y: auto; }
-
         .h-list::-webkit-scrollbar { width: 3px; }
-        .h-list::-webkit-scrollbar-track { background: transparent; }
         .h-list::-webkit-scrollbar-thumb { background: rgba(255,215,0,0.2); border-radius: 10px; }
 
-        .h-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 8px;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            gap: 10px;
-        }
-
+        .h-item { display: flex; align-items: center; padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.03); gap: 10px; }
         .h-item:last-child { border-bottom: none; }
-
         .h-item .h-emoji { font-size: 1.2rem; flex-shrink: 0; }
-
         .h-item .h-info { flex: 1; min-width: 0; }
-
-        .h-item .h-name {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #ddd;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
+        .h-item .h-name { font-size: 0.8rem; font-weight: 600; color: #ddd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .h-item .h-date { font-size: 0.65rem; color: #555; }
-
-        .h-item .h-badge {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 100px;
-            flex-shrink: 0;
-        }
-
-        .h-item .h-badge.upcoming {
-            background: rgba(255,215,0,0.15);
-            color: var(--gold);
-        }
-
-        .h-item .h-badge.next {
-            background: rgba(255,107,53,0.2);
-            color: var(--orange);
-            animation: badgePulse 2s ease infinite;
-        }
-
-        @keyframes badgePulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(255,107,53,0.3); }
-            50% { box-shadow: 0 0 0 6px rgba(255,107,53,0); }
-        }
-
+        .h-item .h-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 100px; flex-shrink: 0; }
+        .h-item .h-badge.upcoming { background: rgba(255,215,0,0.15); color: var(--gold); }
+        .h-item .h-badge.next { background: rgba(255,107,53,0.2); color: var(--orange); animation: badgePulse 2s ease infinite; }
+        @keyframes badgePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,107,53,0.3); } 50% { box-shadow: 0 0 0 6px rgba(255,107,53,0); } }
         .h-item.is-weekend { opacity: 0.4; }
 
         /* ===== MILESTONES ===== */
-        .mile-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            gap: 12px;
-        }
-
+        .mile-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.03); gap: 12px; }
         .mile-item:last-child { border-bottom: none; }
-
-        .mile-dot {
-            width: 28px; height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            flex-shrink: 0;
-        }
-
-        .mile-item.done .mile-dot {
-            background: rgba(0,255,136,0.2);
-            color: var(--green);
-        }
-
-        .mile-item:not(.done) .mile-dot {
-            background: rgba(255,255,255,0.06);
-            color: #444;
-        }
-
+        .mile-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
+        .mile-item.done .mile-dot { background: rgba(0,255,136,0.2); color: var(--green); }
+        .mile-item:not(.done) .mile-dot { background: rgba(255,255,255,0.06); color: #444; }
         .mile-info { flex: 1; }
-
-        .mile-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
+        .mile-title { font-size: 0.8rem; font-weight: 600; }
         .mile-item.done .mile-title { color: var(--green); }
         .mile-item:not(.done) .mile-title { color: #666; }
-
         .mile-date { font-size: 0.65rem; color: #444; }
-
-        .mile-pct {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.65rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
+        .mile-pct { font-family: 'Orbitron', monospace; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; }
         .mile-item.done .mile-pct { color: var(--green); }
         .mile-item:not(.done) .mile-pct { color: #555; }
 
-        /* ===== SALARY ===== */
-        .salary-card {
-            background: rgba(0,255,136,0.03);
-            border: 1px solid rgba(0,255,136,0.15);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 12px 0;
-            text-align: center;
-        }
-
-        .salary-input {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin: 12px 0;
-        }
-
+        /* ===== SALARY CARD ===== */
+        .salary-card { background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.15); border-radius: 20px; padding: 20px; margin: 12px 0; text-align: center; }
+        .salary-input { display: flex; gap: 8px; justify-content: center; margin: 12px 0; }
         .salary-input input {
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(0,255,136,0.2);
-            color: var(--green);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            padding: 8px 12px;
-            border-radius: 10px;
-            width: 140px;
-            text-align: center;
-            outline: none;
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(0,255,136,0.2); color: var(--green);
+            font-family: 'JetBrains Mono', monospace; font-size: 1rem; padding: 8px 12px; border-radius: 10px;
+            width: 140px; text-align: center; outline: none;
         }
-
-        .salary-input input:focus {
-            border-color: var(--green);
-            box-shadow: 0 0 20px rgba(0,255,136,0.15);
-        }
-
-        .salary-input button {
-            background: rgba(0,255,136,0.15);
-            border: 1px solid rgba(0,255,136,0.3);
-            color: var(--green);
-            padding: 8px 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .salary-amount {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--green);
-            text-shadow: 0 0 30px rgba(0,255,136,0.3);
-            margin: 8px 0;
-        }
-
-        .salary-sub {
-            font-size: 0.7rem;
-            color: #555;
-        }
+        .salary-input input:focus { border-color: var(--green); box-shadow: 0 0 20px rgba(0,255,136,0.15); }
+        .salary-input button { background: rgba(0,255,136,0.15); border: 1px solid rgba(0,255,136,0.3); color: var(--green); padding: 8px 16px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.8rem; }
+        .salary-amount { font-family: 'Orbitron', monospace; font-size: 1.8rem; font-weight: 900; color: var(--green); text-shadow: 0 0 30px rgba(0,255,136,0.3); margin: 8px 0; }
+        .salary-sub { font-size: 0.7rem; color: #555; }
 
         /* ===== MOOD ===== */
-        .mood-btns {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 10px 0;
-        }
-
-        .mood-btn {
-            font-size: 1.6rem;
-            padding: 8px;
-            border-radius: 12px;
-            border: 2px solid transparent;
-            background: rgba(0,0,0,0.3);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .mood-btn:active, .mood-btn.sel {
-            border-color: var(--gold);
-            transform: scale(1.15);
-        }
-
-        .mood-trail {
-            display: flex;
-            justify-content: center;
-            gap: 3px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-
-        .mood-trail span {
-            font-size: 0.9rem;
-            padding: 2px;
-        }
+        .mood-btns { display: flex; justify-content: center; gap: 8px; margin: 10px 0; }
+        .mood-btn { font-size: 1.6rem; padding: 8px; border-radius: 12px; border: 2px solid transparent; background: rgba(0,0,0,0.3); cursor: pointer; transition: all 0.2s; }
+        .mood-btn:active, .mood-btn.sel { border-color: var(--gold); transform: scale(1.15); }
+        .mood-trail { display: flex; justify-content: center; gap: 3px; flex-wrap: wrap; margin-top: 8px; }
+        .mood-trail span { font-size: 0.9rem; padding: 2px; }
 
         /* ===== CALENDAR ===== */
-        .cal-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .cal-nav button {
-            background: rgba(255,215,0,0.1);
-            border: 1px solid rgba(255,215,0,0.2);
-            color: var(--gold);
-            width: 36px; height: 36px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cal-nav .cal-month {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            color: var(--gold);
-        }
-
-        .cal-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-        }
-
-        .cal-hdr {
-            text-align: center;
-            font-size: 0.55rem;
-            color: #444;
-            padding: 4px 0;
-            text-transform: uppercase;
-        }
-
-        .cal-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            position: relative;
-        }
-
+        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .cal-nav button { background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.2); color: var(--gold); width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+        .cal-nav .cal-month { font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--gold); }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .cal-hdr { text-align: center; font-size: 0.55rem; color: #444; padding: 4px 0; text-transform: uppercase; }
+        .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 0.7rem; font-weight: 600; position: relative; }
         .cal-day.empty { background: transparent; }
         .cal-day.past { background: rgba(0,255,136,0.2); color: var(--green); }
-        .cal-day.today {
-            background: var(--gold); color: #000; font-weight: 900;
-            box-shadow: 0 0 12px rgba(255,215,0,0.5);
-            animation: todayGlow 2s ease infinite;
-        }
-        @keyframes todayGlow {
-            0%,100% { box-shadow: 0 0 8px rgba(255,215,0,0.3); }
-            50% { box-shadow: 0 0 20px rgba(255,215,0,0.7); }
-        }
+        .cal-day.today { background: var(--gold); color: #000; font-weight: 900; box-shadow: 0 0 12px rgba(255,215,0,0.5); animation: todayGlow 2s ease infinite; }
+        @keyframes todayGlow { 0%,100% { box-shadow: 0 0 8px rgba(255,215,0,0.3); } 50% { box-shadow: 0 0 20px rgba(255,215,0,0.7); } }
         .cal-day.future { background: rgba(255,255,255,0.04); color: #555; }
         .cal-day.free { background: rgba(0,255,136,0.1); color: var(--green); }
-        .cal-day.is-h::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            width: 4px; height: 4px;
-            border-radius: 50%;
-            background: var(--orange);
-        }
+        .cal-day.is-h::after { content: ''; position: absolute; bottom: 2px; width: 4px; height: 4px; border-radius: 50%; background: var(--orange); }
 
-        .cal-legend {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .cal-legend span {
-            font-size: 0.55rem;
-            color: #555;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .cal-legend .leg-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-        }
+        .cal-legend { display: flex; justify-content: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+        .cal-legend span { font-size: 0.55rem; color: #555; display: flex; align-items: center; gap: 4px; }
+        .cal-legend .leg-dot { width: 8px; height: 8px; border-radius: 50%; }
 
         /* ===== FUN FACTS ===== */
-        .fact-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-        }
-
+        .fact-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .fact-item:last-child { border-bottom: none; }
         .fact-item .f-emoji { font-size: 1.3rem; flex-shrink: 0; }
         .fact-item .f-text { font-size: 0.8rem; color: #aaa; }
         .fact-item .f-text strong { color: var(--purple); }
 
         /* ===== FOOTER ===== */
-        .footer {
-            text-align: center;
-            padding: 30px 0;
-            font-size: 0.7rem;
-            color: #333;
-        }
+        .footer { text-align: center; padding: 30px 0; font-size: 0.7rem; color: #333; }
+        .footer .heart { color: var(--orange); display: inline-block; animation: heartbeat 1.5s ease infinite; }
+        @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.3); } }
 
-        .footer .heart {
-            color: var(--orange);
-            display: inline-block;
-            animation: heartbeat 1.5s ease infinite;
-        }
-
-        @keyframes heartbeat {
-            0%,100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-
-        /* ===== CELEBRATION ===== */
-        .celebrate {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            background: rgba(0,0,0,0.95);
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
+        /* ===== CELEBRATION OVERLAY ===== */
+        .celebrate { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.95); flex-direction: column; align-items: center; justify-content: center; }
         .celebrate.on { display: flex; }
+        .celebrate h1 { font-family: 'Orbitron', monospace; font-size: 2rem; color: var(--gold); text-align: center; animation: celebText 1s ease infinite alternate; }
+        @keyframes celebText { from { transform: scale(1); text-shadow: 0 0 20px rgba(255,215,0,0.5); } to { transform: scale(1.05); text-shadow: 0 0 50px rgba(255,215,0,0.8); } }
 
-        .celebrate h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            color: var(--gold);
-            text-align: center;
-            animation: celebText 1s ease infinite alternate;
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.5rem; }
+            .cd-num { font-size: 1.6rem; }
         }
-
-        @keyframes celebText {
-            from { transform: scale(1); text-shadow: 0 0 20px rgba(255,215,0,0.5); }
-            to { transform: scale(1.05); text-shadow: 0 0 50px rgba(255,215,0,0.8); }
-        }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,215,0,0.15); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -971,7 +326,7 @@
                 <span class="line2">FREEDOM</span>
             </div>
             <div class="contract-info">
-                <span>21 Mar 2025</span> → <span>31 Mar 2027</span>
+                <span>21 Mar 2026</span> → <span>31 Mar 2027</span>
             </div>
         </div>
 
@@ -987,28 +342,13 @@
         <div class="countdown-card">
             <div class="countdown-label">⏰ Until Freedom</div>
             <div class="countdown-grid">
-                <div class="cd-item">
-                    <div class="cd-num" id="cdMon">--</div>
-                    <div class="cd-lbl">Mon</div>
-                </div>
-                <div class="cd-item">
-                    <div class="cd-num" id="cdDay">--</div>
-                    <div class="cd-lbl">Days</div>
-                </div>
-                <div class="cd-item">
-                    <div class="cd-num" id="cdHrs">--</div>
-                    <div class="cd-lbl">Hrs</div>
-                </div>
-                <div class="cd-item">
-                    <div class="cd-num" id="cdMin">--</div>
-                    <div class="cd-lbl">Min</div>
-                </div>
-                <div class="cd-item">
-                    <div class="cd-num" id="cdSec">--</div>
-                    <div class="cd-lbl">Sec</div>
-                </div>
+                <div class="cd-item"><div class="cd-num" id="cdMon">--</div><div class="cd-lbl">Mon</div></div>
+                <div class="cd-item"><div class="cd-num" id="cdDay">--</div><div class="cd-lbl">Days</div></div>
+                <div class="cd-item"><div class="cd-num" id="cdHrs">--</div><div class="cd-lbl">Hrs</div></div>
+                <div class="cd-item"><div class="cd-num" id="cdMin">--</div><div class="cd-lbl">Min</div></div>
+                <div class="cd-item"><div class="cd-num" id="cdSec">--</div><div class="cd-lbl">Sec</div></div>
             </div>
-            <!-- Seconds Ring -->
+            <!-- Seconds Circle -->
             <div class="seconds-ring">
                 <svg viewBox="0 0 80 80">
                     <circle class="ring-bg" cx="40" cy="40" r="35"/>
@@ -1020,7 +360,7 @@
             <div class="freedom-date-text">🗓️ Freedom: Wednesday, March 31, 2027</div>
         </div>
 
-        <!-- Progress -->
+        <!-- Progress Card -->
         <div class="progress-card">
             <div class="progress-header">
                 <span class="progress-title">📊 Contract Progress</span>
@@ -1037,7 +377,7 @@
             </div>
         </div>
 
-        <!-- Next Holiday -->
+        <!-- Next Holiday Card -->
         <div class="holiday-card" id="nextHolCard">
             <div class="hc-label">🎉 Next Bank Holiday</div>
             <div class="hc-name" id="nhName">Loading...</div>
@@ -1045,48 +385,24 @@
             <div class="hc-days" id="nhDays">--</div>
         </div>
 
-        <!-- Stats -->
+        <!-- Stats Grid -->
         <div class="stats-grid">
-            <div class="stat highlight">
-                <div class="stat-icon">💼</div>
-                <div class="stat-val" id="sWork">--</div>
-                <div class="stat-lbl">Actual Workdays</div>
-            </div>
-            <div class="stat warn">
-                <div class="stat-icon">🎉</div>
-                <div class="stat-val" id="sHol">--</div>
-                <div class="stat-lbl">Holidays Left</div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">📅</div>
-                <div class="stat-val" id="sWeek">--</div>
-                <div class="stat-lbl">Weeks Left</div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">🌅</div>
-                <div class="stat-val" id="sWknd">--</div>
-                <div class="stat-lbl">Weekends Left</div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">🌙</div>
-                <div class="stat-val" id="sSleep">--</div>
-                <div class="stat-lbl">Sleeps Left</div>
-            </div>
-            <div class="stat">
-                <div class="stat-icon">🚂</div>
-                <div class="stat-val" id="sComm">--</div>
-                <div class="stat-lbl">Commutes Left</div>
-            </div>
+            <div class="stat highlight"><div class="stat-icon">💼</div><div class="stat-val" id="sWork">--</div><div class="stat-lbl">Actual Workdays</div></div>
+            <div class="stat warn"><div class="stat-icon">🎉</div><div class="stat-val" id="sHol">--</div><div class="stat-lbl">Holidays Left</div></div>
+            <div class="stat"><div class="stat-icon">📅</div><div class="stat-val" id="sWeek">--</div><div class="stat-lbl">Weeks Left</div></div>
+            <div class="stat"><div class="stat-icon">🌅</div><div class="stat-val" id="sWknd">--</div><div class="stat-lbl">Weekends Left</div></div>
+            <div class="stat"><div class="stat-icon">🌙</div><div class="stat-val" id="sSleep">--</div><div class="stat-lbl">Sleeps Left</div></div>
+            <div class="stat"><div class="stat-icon">🚂</div><div class="stat-val" id="sComm">--</div><div class="stat-lbl">Commutes Left</div></div>
         </div>
 
-        <!-- Motivation -->
+        <!-- Motivation Ticker -->
         <div class="ticker" id="ticker" onclick="newQuote()">
             <div class="ticker-quote" id="tQuote">"Loading..."</div>
             <div class="ticker-author" id="tAuthor"></div>
             <div class="ticker-hint">tap for new quote</div>
         </div>
 
-        <!-- Salary -->
+        <!-- Salary Tracker -->
         <div class="salary-card">
             <div class="section-title"><span class="emoji">💰</span> Money Earned</div>
             <div class="salary-input">
@@ -1099,7 +415,7 @@
 
         <!-- Holiday List -->
         <div class="section-card">
-            <div class="section-title"><span class="emoji">📋</span> All Remaining Holidays</div>
+            <div class="section-title"><span class="emoji">📋</span> Remaining Holidays</div>
             <div class="h-list" id="hList"></div>
         </div>
 
@@ -1126,7 +442,7 @@
             <div id="mileList"></div>
         </div>
 
-        <!-- Mood -->
+        <!-- Mood Tracker -->
         <div class="section-card">
             <div class="section-title"><span class="emoji">😊</span> Today's Mood</div>
             <div class="mood-btns">
@@ -1153,7 +469,7 @@
         </div>
     </div>
 
-    <!-- Celebration -->
+    <!-- Celebration Screen -->
     <div class="celebrate" id="celeb">
         <h1>🎉🎊 YOU'RE FREE! 🎊🎉</h1>
         <p style="color:#ffd700;font-size:1.2rem;margin-top:16px;">The CSB contract is OVER!</p>
@@ -1161,65 +477,60 @@
 
 <script>
 // ===== CONFIG =====
-const START = new Date(2025, 2, 21);       // Mar 21, 2025
-const END = new Date(2027, 2, 31, 18, 0);  // Mar 31, 2027 6PM
+const START = new Date(2026, 2, 21);       // March 21, 2026
+const END = new Date(2027, 2, 31, 18, 0);  // March 31, 2027 6PM
 
-// ===== BANK HOLIDAYS DATABASE =====
+// ===== EXACT MAHARASHTRA CSB BANK HOLIDAY DATABASE =====
 const H = [
-    // 2025 (from Mar 21)
-    ['2025-03-22','4th Saturday','📅'],['2025-04-01','Annual Closing','📊'],
-    ['2025-04-10','Mahavir Jayanti','🙏'],['2025-04-12','2nd Saturday','📅'],
-    ['2025-04-14','Ambedkar Jayanti','📜'],['2025-04-18','Good Friday','✝️'],
-    ['2025-04-26','4th Saturday','📅'],['2025-05-01','May Day','✊'],
-    ['2025-05-10','2nd Saturday','📅'],['2025-05-24','4th Saturday','📅'],
-    ['2025-06-07','Eid al-Fitr','🌙'],['2025-06-14','2nd Saturday','📅'],
-    ['2025-06-28','4th Saturday','📅'],['2025-07-12','2nd Saturday','📅'],
-    ['2025-07-26','4th Saturday','📅'],['2025-08-09','2nd Saturday','📅'],
-    ['2025-08-15','Independence Day','🇮🇳'],['2025-08-16','Janmashtami','🪈'],
-    ['2025-08-23','4th Saturday','📅'],['2025-09-05','Eid-e-Milad','🕌'],
-    ['2025-09-13','2nd Saturday','📅'],['2025-09-27','4th Saturday','📅'],
-    ['2025-10-02','Gandhi Jayanti','🕊️'],['2025-10-11','2nd Saturday','📅'],
-    ['2025-10-20','Diwali','🪔'],['2025-10-21','Diwali Day 2','🪔'],
-    ['2025-10-25','4th Saturday','📅'],['2025-11-05','Guru Nanak Jayanti','🙏'],
-    ['2025-11-08','2nd Saturday','📅'],['2025-11-22','4th Saturday','📅'],
-    ['2025-12-13','2nd Saturday','📅'],['2025-12-25','Christmas','🎄'],
-    ['2025-12-27','4th Saturday','📅'],
+    // 2026 March to Dec Public Holidays
+    ['2026-03-03','Holi (Second Day)','🎨'],
+    ['2026-03-19','Gudhi Padwa','🌸'],
+    ['2026-03-21','Ramzan-Id (Id-Ul-Fitr)','🌙'],
+    ['2026-03-26','Ram Navami','🏹'],
+    ['2026-03-31','Mahavir Janmakalyanak','🙏'],
+    ['2026-04-03','Good Friday','✝️'],
+    ['2026-04-14','Dr. Ambedkar Jayanti','📜'],
+    ['2026-05-01','Maharashtra Din / Buddha Pournima','✊'],
+    ['2026-05-28','Bakri Id (Id-Uz-Zuha)','🌙'],
+    ['2026-06-26','Moharum','🕌'],
+    ['2026-08-15','Independence Day / Parsi New Year','🇮🇳'],
+    ['2026-08-26','Id-E-Milad','🌙'],
+    ['2026-09-14','Ganesh Chaturthi','🔱'],
+    ['2026-10-02','Mahatma Gandhi Jayanti','🕊️'],
+    ['2026-10-20','Dasara','🏹'],
+    ['2026-11-08','Diwali Amavasya (Laxmi Pujan)','🪔'],
+    ['2026-11-10','Diwali (Bali Pratipada)','🪔'],
+    ['2026-11-24','Guru Nanak Jayanti','🙏'],
+    ['2026-12-25','Christmas','🎄'],
 
-    // 2026 (FULL - from your data)
-    ['2026-01-10','2nd Saturday','📅'],['2026-01-24','4th Saturday','📅'],
-    ['2026-01-26','Republic Day','🇮🇳'],['2026-02-14','2nd Saturday','📅'],
-    ['2026-02-15','Maha Shivaratri','🔱'],['2026-02-28','4th Saturday','📅'],
-    ['2026-03-03','Holi','🎨'],['2026-03-14','2nd Saturday','📅'],
-    ['2026-03-19','Ugadi','🌸'],['2026-03-28','4th Saturday','📅'],
-    ['2026-04-03','Good Friday','✝️'],['2026-04-11','2nd Saturday','📅'],
-    ['2026-04-14','Ambedkar Jayanti','📜'],['2026-04-25','4th Saturday','📅'],
-    ['2026-05-01','May Day','✊'],['2026-05-09','2nd Saturday','📅'],
-    ['2026-05-23','4th Saturday','📅'],['2026-05-27','Bakrid','🌙'],
+    // 2027 Jan to Mar Public Holidays
+    ['2027-01-26','Republic Day','🇮🇳'],
+    ['2027-02-19','Chhatrapati Shivaji Maharaj Jayanti','⚔️'],
+    ['2027-03-06','Mahashivratri','🔱'],
+    ['2027-03-10','Ramzan-Id (Id-ul-Fitr)','🌙'],
+    ['2027-03-22','Holi','🎨'],
+    ['2027-03-26','Good Friday','✝️'],
+
+    // standard 2nd & 4th Saturday Bank Holidays (Contract Period)
+    ['2026-03-28','4th Saturday','📅'],
+    ['2026-04-11','2nd Saturday','📅'],['2026-04-25','4th Saturday','📅'],
+    ['2026-05-09','2nd Saturday','📅'],['2026-05-23','4th Saturday','📅'],
     ['2026-06-13','2nd Saturday','📅'],['2026-06-27','4th Saturday','📅'],
     ['2026-07-11','2nd Saturday','📅'],['2026-07-25','4th Saturday','📅'],
-    ['2026-08-08','2nd Saturday','📅'],['2026-08-15','Independence Day','🇮🇳'],
-    ['2026-08-22','4th Saturday','📅'],['2026-09-04','Janmashtami','🪈'],
+    ['2026-08-08','2nd Saturday','📅'],['2026-08-22','4th Saturday','📅'],
     ['2026-09-12','2nd Saturday','📅'],['2026-09-26','4th Saturday','📅'],
-    ['2026-10-02','Gandhi Jayanti','🕊️'],['2026-10-10','2nd Saturday','📅'],
-    ['2026-10-24','4th Saturday','📅'],['2026-11-08','Diwali','🪔'],
+    ['2026-10-10','2nd Saturday','📅'],['2026-10-24','4th Saturday','📅'],
     ['2026-11-14','2nd Saturday','📅'],['2026-11-28','4th Saturday','📅'],
-    ['2026-12-12','2nd Saturday','📅'],['2026-12-25','Christmas','🎄'],
-    ['2026-12-26','4th Saturday','📅'],
-
-    // 2027 (Jan-Mar from your data)
+    ['2026-12-12','2nd Saturday','📅'],['2026-12-26','4th Saturday','📅'],
     ['2027-01-09','2nd Saturday','📅'],['2027-01-23','4th Saturday','📅'],
-    ['2027-01-26','Republic Day','🇮🇳'],['2027-02-13','2nd Saturday','📅'],
-    ['2027-02-27','4th Saturday','📅'],['2027-03-06','Maha Shivaratri','🔱'],
-    ['2027-03-10','Ramzan Id','🌙'],['2027-03-13','2nd Saturday','📅'],
-    ['2027-03-22','Holi','🎨'],['2027-03-26','Good Friday','✝️'],
-    ['2027-03-27','4th Saturday','📅'],
+    ['2027-02-13','2nd Saturday','📅'],['2027-02-27','4th Saturday','📅'],
+    ['2027-03-13','2nd Saturday','📅'],['2027-03-27','4th Saturday','📅']
 ];
 
-// Parse holidays
 const holidays = H.map(h => {
     const p = h[0].split('-');
     return { date: new Date(+p[0], +p[1]-1, +p[2]), name: h[1], emoji: h[2] };
-});
+}).sort((a, b) => a.date - b.date);
 
 const holSet = new Set();
 holidays.forEach(h => holSet.add(`${h.date.getFullYear()}-${h.date.getMonth()}-${h.date.getDate()}`));
@@ -1227,18 +538,15 @@ holidays.forEach(h => holSet.add(`${h.date.getFullYear()}-${h.date.getMonth()}-$
 function isHol(d) { return holSet.has(`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`); }
 function dayKey(d) { return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; }
 
-// ===== HEARTBEAT =====
+// ===== HEARTBEAT LINE =====
 let hbPoints = [];
-function initHeartbeat() {
-    for (let i = 0; i < 100; i++) hbPoints.push(20);
-}
+function initHeartbeat() { for (let i = 0; i < 100; i++) hbPoints.push(20); }
 initHeartbeat();
 
 function updateHeartbeat() {
     hbPoints.shift();
     const now = new Date();
     const sec = now.getSeconds();
-    // Create spike every second
     if (sec !== updateHeartbeat.lastSec) {
         hbPoints.push(5);
         setTimeout(() => {
@@ -1255,13 +563,10 @@ function updateHeartbeat() {
     } else {
         hbPoints.push(20);
     }
-
     const svg = document.getElementById('heartbeatSvg');
     const w = 400, h = 40;
     let d = `M 0 ${hbPoints[0]}`;
-    for (let i = 1; i < hbPoints.length; i++) {
-        d += ` L ${(i/99)*w} ${hbPoints[i]}`;
-    }
+    for (let i = 1; i < hbPoints.length; i++) { d += ` L ${(i/99)*w} ${hbPoints[i]}`; }
     svg.innerHTML = `<path class="heartbeat-line" d="${d}"/>`;
 }
 updateHeartbeat.lastSec = -1;
@@ -1273,10 +578,9 @@ function updateClock() {
     document.getElementById('liveClock').textContent = now.toLocaleString('en-IN', opts).toUpperCase();
 }
 
-// ===== PREVIOUS VALUES (for tick animation) =====
 let prev = { m:null, d:null, h:null, mi:null, s:null };
 
-// ===== MAIN COUNTDOWN =====
+// ===== MAIN COUNTDOWN AND CALCULATOR =====
 function updateCountdown() {
     const now = new Date();
     const diff = END - now;
@@ -1291,7 +595,6 @@ function updateCountdown() {
     const th = Math.floor(tm/60);
     const td = Math.floor(th/24);
 
-    // Months calculation
     let mon = 0, tmp = new Date(now);
     while (true) {
         let nx = new Date(tmp); nx.setMonth(nx.getMonth()+1);
@@ -1302,13 +605,12 @@ function updateCountdown() {
 
     const vals = { m: mon, d: rd, h: th%24, mi: tm%60, s: ts%60 };
 
-    // Update with tick animation
     function upd(id, val, key) {
         const el = document.getElementById(id);
         const v = String(val).padStart(2, '0');
         if (prev[key] !== null && prev[key] !== val) {
             el.classList.remove('tick');
-            void el.offsetWidth; // reflow
+            void el.offsetWidth;
             el.classList.add('tick');
         }
         el.textContent = v;
@@ -1321,7 +623,7 @@ function updateCountdown() {
     upd('cdMin', vals.mi, 'mi');
     upd('cdSec', vals.s, 's');
 
-    // Seconds ring
+    // Ring Offset
     const circumference = 2 * Math.PI * 35;
     const offset = circumference - (vals.s / 60) * circumference;
     document.getElementById('secRing').style.strokeDasharray = circumference;
@@ -1339,13 +641,15 @@ function updateCountdown() {
     document.getElementById('dDone').textContent = done;
     document.getElementById('dLeft').textContent = td;
 
-    // Stats
+    // Remaining Workdays / Saturdays calculation
     let wknds=0, wkdays=0, holsLeft=0;
     let dd = new Date(now);
     for (let i=0; i<td; i++) {
         const day = dd.getDay();
-        if (day===0||day===6) wknds++;
-        else {
+        if (day===0||day===6) {
+            wknds++;
+            if (isHol(dd)) holsLeft++; // Keep track of weekend holidays
+        } else {
             if (isHol(dd)) holsLeft++;
             else wkdays++;
         }
@@ -1359,10 +663,7 @@ function updateCountdown() {
     document.getElementById('sSleep').textContent = td;
     document.getElementById('sComm').textContent = wkdays * 2;
 
-    // Next Holiday
     updateNextHoliday(now);
-
-    // Clock & heartbeat
     updateClock();
     updateHeartbeat();
 }
@@ -1377,7 +678,7 @@ function updateNextHoliday(now) {
     }
     if (!found) {
         document.getElementById('nhName').textContent = 'No more holidays!';
-        document.getElementById('nhDate').textContent = 'Freedom is SO close!';
+        document.getElementById('nhDate').textContent = 'Freedom is right around the corner!';
         document.getElementById('nhDays').textContent = '🎉';
         return;
     }
@@ -1387,7 +688,7 @@ function updateNextHoliday(now) {
     document.getElementById('nhDays').textContent = dd === 0 ? '🎉 TODAY!' : `${dd} day${dd>1?'s':''}`;
 }
 
-// ===== HOLIDAY LIST =====
+// ===== RENDER REMAINING HOLIDAYS =====
 function renderHolidays() {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -1411,7 +712,7 @@ function renderHolidays() {
         </div>`;
     });
 
-    el.innerHTML = html || '<p style="text-align:center;color:#444;padding:20px;">No more holidays! Freedom is here! 🎉</p>';
+    el.innerHTML = html || '<p style="text-align:center;color:#444;padding:20px;">No remaining holidays! Freedom is here! 🎉</p>';
 }
 renderHolidays();
 
@@ -1431,16 +732,8 @@ const Q = [
     ["Difficult roads often lead to beautiful destinations.","Zig Ziglar"],
     ["A river cuts rock not by power but persistence.","Jim Watkins"],
     ["Your future self is watching. Make them proud.","Unknown"],
-    ["It does not matter how slowly you go as long as you do not stop.","Confucius"],
-    ["The pain you feel today will be the strength you feel tomorrow.","Unknown"],
-    ["Almost there. Keep going.","Your Future Self"],
-    ["CSB ka contract khatam hoga, tera time aayega!","Apna Mumbai"],
-    ["March 31, 2027 - that date is LOCKED. Nothing can stop it.","Truth"],
     ["Every second on this clock is a second you'll never work again.","Mathematics"],
-    ["Banks close on holidays. Your dreams never close.","Hustle"],
-    ["Patience is bitter, but its fruit is sweet.","Aristotle"],
-    ["The best view comes after the hardest climb.","Unknown"],
-    ["Freedom is the oxygen of the soul.","Moshe Dayan"],
+    ["March 31, 2027 is locked and loaded. Keep going!","Freedom Target"],
 ];
 
 function newQuote() {
@@ -1482,9 +775,9 @@ renderCal();
 // ===== MILESTONES =====
 function renderMiles() {
     const now=new Date(),total=END-START,elapsed=now-START,pct=(elapsed/total)*100;
-    const ms=[
+    const ms = [
         [10,"10% - First Steps! 🌱"],[25,"25% - Quarter Way! 🏃"],
-        [33,"33% - One Third! ⚡"],[50,"50% - HALFWAY! 🏔️"],
+        [33,"33% - One Third! ⚡"],[50,"50% - Halfway Mark! 🏔️"],
         [60,"60% - Past the Hump! 🔥"],[70,"70% - Final Stretch! 💪"],
         [75,"75% - Last Quarter! 🏁"],[80,"80% - Smell Freedom! 🌊"],
         [90,"90% - Single Digits! 🚀"],[95,"95% - SO CLOSE! 👑"],
@@ -1507,22 +800,29 @@ function renderMiles() {
 }
 renderMiles();
 
-// ===== SALARY =====
+// ===== SALARY TRACKER =====
 function saveSalary(){localStorage.setItem('csbSal',document.getElementById('salIn').value);updateSal();}
-function updateSal(){
+function updateSal() {
     const s=parseFloat(localStorage.getItem('csbSal')||document.getElementById('salIn').value||0);
     if(!s)return;document.getElementById('salIn').value=s;
     const now=new Date();
-    const mw=(now.getFullYear()-START.getFullYear())*12+(now.getMonth()-START.getMonth());
-    const dim=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
-    const earned=Math.floor((mw+now.getDate()/dim)*s);
+    
+    // Calculate months elapsed since start
+    let mw = (now.getFullYear() - START.getFullYear()) * 12 + (now.getMonth() - START.getMonth());
+    const dim = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+    const currentMonthFraction = now.getDate() / dim;
+    const totalMonthsElapsed = Math.max(0, mw + currentMonthFraction);
+    
+    const earned = Math.floor(totalMonthsElapsed * s);
     document.getElementById('salAmt').textContent='₹'+earned.toLocaleString('en-IN');
-    const ml=Math.floor((END-now)/2592e6);
+    
+    // Remaining months calculations
+    const ml=Math.max(0, Math.floor((END-now)/2592e6));
     document.getElementById('salSub').textContent=`₹${(ml*s).toLocaleString('en-IN')} still to earn (~${ml} months)`;
 }
 updateSal();
 
-// ===== MOOD =====
+// ===== MOOD TRAIL =====
 function setMood(e){
     const t=new Date().toDateString();
     let m=JSON.parse(localStorage.getItem('csbMood')||'{}');
@@ -1543,7 +843,7 @@ function renderMood(){
 }
 renderMood();
 
-// ===== FUN FACTS =====
+// ===== FUN PERSPECTIVE PERSISTENCE =====
 function renderFacts(){
     const dl=Math.floor((END-new Date())/864e5);
     const wk=Math.floor(dl*5/7);
@@ -1551,9 +851,9 @@ function renderFacts(){
         ['🍿',`<strong>${dl*2}</strong> movies you can watch before freedom`],
         ['🎵',`<strong>${wk*50}</strong> songs during commute left`],
         ['📱',`<strong>${dl*96}</strong> phone checks remaining`],
-        ['🌧️',`Only <strong>${Math.floor(dl/5)}</strong> Mumbai rains to dodge`],
+        ['🌧️',`Only <strong>${Math.max(0, Math.floor(dl/5))}</strong> Mumbai rains to dodge`],
         ['💤',`<strong>${(dl*8).toLocaleString()}</strong> hours of sleep until free`],
-        ['📊',`~<strong>${wk}</strong> Excel nightmares left`],
+        ['📊',`~<strong>${wk}</strong> Excel sheets left`],
         ['☕',`<strong>${wk*2}</strong> office coffees remaining`],
     ];
     const el=document.getElementById('funFacts');el.innerHTML='';
@@ -1561,12 +861,10 @@ function renderFacts(){
 }
 renderFacts();
 
-// ===== MAIN LOOP =====
+// ===== UPDATE INTERVALS =====
 updateCountdown();
 setInterval(updateCountdown, 1000);
-
-// Refresh holiday list at midnight
-setInterval(renderHolidays, 3600000);
+setInterval(renderHolidays, 3600000); // Check for holiday updates once an hour
 </script>
 </body>
 </html>
