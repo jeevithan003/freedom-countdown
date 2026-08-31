@@ -2,345 +2,855 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Freedom Countdown | CSB Bank</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Freedom Countdown · CSB</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏳</text></svg>">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
-
-        :root {
-            --gold: #ffd700;
-            --orange: #ff6b35;
-            --green: #00ff88;
-            --purple: #a855f7;
-            --red: #ff4444;
-            --dark: #06060f;
-            --card: rgba(255,255,255,0.03);
-            --border: rgba(255,255,255,0.06);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--dark);
-            color: #fff;
+            background: #f4f6fa;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1e1e2f;
             min-height: 100vh;
-            min-height: 100dvh;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ===== BACKGROUND ANIMATIONS ===== */
-        .bg {
-            position: fixed; inset: 0; z-index: 0;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(255,107,53,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(255,215,0,0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(0,255,136,0.04) 0%, transparent 50%),
-                var(--dark);
-        }
-
-        .bg-grid {
-            position: fixed; inset: 0; z-index: 0;
-            background-image:
-                linear-gradient(rgba(255,215,0,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,215,0,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0,0); }
-            100% { transform: translate(60px,60px); }
-        }
-
-        .orb {
-            position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0;
-            animation: orbFloat 20s ease-in-out infinite;
-        }
-        .orb-1 { width:300px;height:300px;background:rgba(255,215,0,0.07);top:-100px;right:-100px;animation-delay:0s; }
-        .orb-2 { width:250px;height:250px;background:rgba(255,107,53,0.06);bottom:-50px;left:-80px;animation-delay:-7s; }
-        .orb-3 { width:200px;height:200px;background:rgba(0,255,136,0.05);top:50%;left:50%;animation-delay:-14s; }
-
-        @keyframes orbFloat {
-            0%,100% { transform: translate(0,0) scale(1); }
-            25% { transform: translate(30px,-40px) scale(1.1); }
-            50% { transform: translate(-20px,30px) scale(0.9); }
-            75% { transform: translate(40px,20px) scale(1.05); }
+            padding: 16px 12px 40px;
+            display: flex;
+            justify-content: center;
         }
 
         .app {
-            position: relative; z-index: 1; max-width: 480px;
-            margin: 0 auto; padding: 16px; padding-bottom: 100px;
+            max-width: 480px;
+            width: 100%;
         }
 
-        /* ===== HEADER ===== */
-        .header { text-align: center; padding: 20px 0 10px; }
+        .card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 20px 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.1s ease;
+        }
+
+        .header {
+            text-align: center;
+            padding-top: 6px;
+        }
+
         .bank-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-            padding: 6px 14px; border-radius: 100px; font-size: 0.7rem; color: #888;
-            letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eef0f5;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            color: #3d3d5c;
+            margin-bottom: 12px;
         }
+
         .bank-badge .dot {
-            width: 6px; height: 6px; background: var(--orange); border-radius: 50%;
-            animation: blink 2s ease infinite;
+            width: 7px;
+            height: 7px;
+            background: #2e7d5e;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-dot 2s infinite;
         }
-        @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
 
-        .title { font-family: 'Orbitron', monospace; font-size: 1.6rem; font-weight: 900; letter-spacing: -0.5px; line-height: 1.2; }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 0.5; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .title {
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
         .title .line1 {
-            display: block; background: linear-gradient(135deg, #fff 0%, #ccc 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-size: 1rem; font-weight: 600;
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #4a4a6a;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        .title .line2 {
-            display: block; background: linear-gradient(90deg, var(--gold), var(--orange), var(--gold));
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite; font-size: 1.8rem;
-        }
-        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
 
-        .contract-info { margin-top: 10px; font-size: 0.75rem; color: #555; }
-        .contract-info span { color: var(--green); font-weight: 600; }
+        .title .line2 {
+            display: block;
+            font-size: 2.1rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #1f2b4b, #3b4b7a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .contract-info {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            background: #e9edf5;
+            display: inline-block;
+            padding: 4px 18px;
+            border-radius: 30px;
+            color: #2a2a44;
+            font-weight: 500;
+        }
+
+        .contract-info span {
+            font-weight: 700;
+            color: #1f3a6b;
+        }
 
         .live-clock {
-            text-align: center; padding: 8px; font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem; color: #444; letter-spacing: 2px;
+            text-align: center;
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.6px;
+            color: #5b5b7a;
+            padding: 6px 0 4px;
+            opacity: 0.7;
         }
 
-        /* ===== MAIN COUNTDOWN ===== */
         .countdown-card {
-            position: relative; background: rgba(255,215,0,0.02);
-            border: 1px solid rgba(255,215,0,0.15); border-radius: 24px;
-            padding: 28px 20px; margin: 16px 0; overflow: hidden;
+            background: linear-gradient(145deg, #ffffff, #f2f5fc);
+            border: 1px solid #dde3ed;
+            padding: 24px 12px 16px;
         }
-        .countdown-card::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 200%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.05), transparent);
-            animation: cardSweep 4s ease-in-out infinite;
-        }
-        @keyframes cardSweep { 0% { transform: translateX(-50%); } 100% { transform: translateX(50%); } }
 
-        .countdown-label { text-align: center; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
-        .countdown-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-        .cd-item { text-align: center; position: relative; }
+        .countdown-label {
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #5d6b8a;
+            margin-bottom: 16px;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+
+        .cd-item {
+            text-align: center;
+        }
+
         .cd-num {
-            font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.8rem;
-            color: var(--gold); line-height: 1; text-shadow: 0 0 30px rgba(255,215,0,0.3);
-            transition: all 0.3s; position: relative;
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-weight: 700;
+            font-size: 1.9rem;
+            color: #1f2b4b;
+            line-height: 1.2;
+            background: #eef2f9;
+            padding: 6px 0;
+            border-radius: 16px;
+            transition: all 0.15s;
+            letter-spacing: -0.5px;
         }
-        .cd-num.tick { animation: tickPulse 0.6s ease; }
-        @keyframes tickPulse { 0% { transform: scale(1); } 30% { transform: scale(1.15); color: #fff; text-shadow: 0 0 40px rgba(255,215,0,0.8); } 100% { transform: scale(1); } }
-        .cd-lbl { font-size: 0.55rem; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
 
-        /* ===== SECONDS CIRCLE ===== */
-        .seconds-ring { display: flex; justify-content: center; margin: -5px 0 10px; }
-        .seconds-ring svg { width: 80px; height: 80px; transform: rotate(-90deg); }
-        .seconds-ring .ring-bg { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 3; }
-        .seconds-ring .ring-fill {
-            fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round;
-            stroke-dasharray: 220; stroke-dashoffset: 220; transition: stroke-dashoffset 0.3s linear;
-            filter: drop-shadow(0 0 6px rgba(255,215,0,0.4));
+        .cd-num.tick {
+            animation: tickPop 0.3s ease;
         }
-        .seconds-ring .ring-text { font-family: 'Orbitron', monospace; font-size: 16px; fill: var(--gold); text-anchor: middle; dominant-baseline: central; font-weight: 900; }
-        .seconds-ring .ring-label { font-family: 'Inter', sans-serif; font-size: 5px; fill: #666; text-anchor: middle; dominant-baseline: central; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* ===== HEARTBEAT LINE ===== */
-        .heartbeat-container { padding: 0 0 10px; overflow: hidden; height: 40px; }
-        .heartbeat-line { stroke: var(--gold); stroke-width: 2; fill: none; filter: drop-shadow(0 0 4px rgba(255,215,0,0.5)); }
-        .heartbeat-svg { width: 100%; height: 40px; }
+        @keyframes tickPop {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.08); background: #d4def0; }
+            100% { transform: scale(1); }
+        }
 
-        /* ===== PROGRESS ===== */
-        .progress-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px 20px; margin: 12px 0; }
-        .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-        .progress-title { font-size: 0.85rem; font-weight: 600; }
-        .progress-pct { font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 900; color: var(--green); }
-        .progress-track { height: 12px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; position: relative; }
-        .progress-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--orange), var(--gold), var(--green)); position: relative; transition: width 1s ease; }
-        .progress-fill::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%); animation: progressShine 2s ease infinite; }
-        @keyframes progressShine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        .progress-glow { position: absolute; right: -2px; top: -4px; width: 20px; height: 20px; background: var(--green); border-radius: 50%; filter: blur(8px); animation: glowPulse 1.5s ease infinite; }
-        @keyframes glowPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
-        .progress-stats { display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.7rem; }
-        .progress-stats .done { color: var(--green); }
-        .progress-stats .left { color: var(--orange); }
+        .cd-lbl {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6b7a98;
+            margin-top: 6px;
+            font-weight: 500;
+        }
 
-        /* ===== NEXT HOLIDAY CARD ===== */
+        .seconds-ring {
+            display: flex;
+            justify-content: center;
+            margin: 6px 0 4px;
+        }
+
+        .seconds-ring svg {
+            width: 76px;
+            height: 76px;
+            transform: rotate(-90deg);
+        }
+
+        .ring-bg {
+            fill: none;
+            stroke: #d8e0ec;
+            stroke-width: 3.5;
+        }
+
+        .ring-fill {
+            fill: none;
+            stroke: #2b4b7a;
+            stroke-width: 3.5;
+            stroke-linecap: round;
+            stroke-dasharray: 220;
+            stroke-dashoffset: 220;
+            transition: stroke-dashoffset 0.25s linear;
+        }
+
+        .ring-text {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-size: 16px;
+            fill: #1f2b4b;
+            text-anchor: middle;
+            dominant-baseline: central;
+            font-weight: 700;
+        }
+
+        .ring-label {
+            font-family: system-ui, sans-serif;
+            font-size: 5px;
+            fill: #7a8aa8;
+            text-anchor: middle;
+            dominant-baseline: central;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .freedom-date-text {
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #3d5a78;
+            margin-top: 8px;
+            background: #e9eff8;
+            padding: 5px 12px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
+        }
+
+        .progress-card {
+            background: #f0f4fe;
+            border: 1px solid #d3dfef;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1f334f;
+        }
+
+        .progress-pct {
+            font-family: 'SF Mono', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #236b4e;
+        }
+
+        .progress-track {
+            height: 12px;
+            background: #d7e1ef;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 40px;
+            background: linear-gradient(90deg, #3c7a5e, #2b6f8a);
+            transition: width 0.8s ease;
+            width: 0%;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #3d4d6b;
+        }
+
+        .progress-stats .done {
+            color: #1f6b4a;
+        }
+
+        .progress-stats .left {
+            color: #a0513a;
+        }
+
         .holiday-card {
-            background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(255,215,0,0.08));
-            border: 1px solid rgba(255,107,53,0.2); border-radius: 20px;
-            padding: 20px; margin: 12px 0; position: relative; overflow: hidden;
+            background: #e9f0fa;
+            border: 1px solid #c7d8ed;
+            border-radius: 24px;
+            padding: 16px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
         }
-        .holiday-card::after { content: '🎉'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 2.5rem; opacity: 0.15; }
-        .hc-label { font-size: 0.65rem; color: var(--orange); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
-        .hc-name { font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
-        .hc-date { font-size: 0.75rem; color: #888; margin-bottom: 8px; }
+
+        .holiday-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hc-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #4b6b8f;
+            font-weight: 600;
+        }
+
+        .hc-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1f2f4a;
+        }
+
+        .hc-date {
+            font-size: 0.7rem;
+            color: #4b6080;
+        }
+
         .hc-days {
-            display: inline-flex; align-items: center; gap: 4px;
-            background: rgba(255,107,53,0.2); padding: 4px 12px; border-radius: 100px;
-            font-family: 'Orbitron', monospace; font-size: 0.8rem; font-weight: 700; color: var(--orange);
+            background: #d4e0f2;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #1f3b5c;
         }
 
-        /* ===== STATS GRID ===== */
-        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 12px 0; }
-        .stat { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px; text-align: center; transition: all 0.3s; }
-        .stat:active { transform: scale(0.97); }
-        .stat-icon { font-size: 1.5rem; margin-bottom: 6px; }
-        .stat-val { font-family: 'Orbitron', monospace; font-size: 1.3rem; font-weight: 800; color: var(--gold); }
-        .stat-lbl { font-size: 0.65rem; color: #666; margin-top: 3px; }
-        .stat.highlight { border-color: rgba(0,255,136,0.2); background: rgba(0,255,136,0.03); }
-        .stat.highlight .stat-val { color: var(--green); }
-        .stat.warn { border-color: rgba(255,107,53,0.2); background: rgba(255,107,53,0.03); }
-        .stat.warn .stat-val { color: var(--orange); }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 4px;
+        }
 
-        /* ===== MOTIVATION TICKER ===== */
+        .stat {
+            background: #ffffffcc;
+            backdrop-filter: blur(2px);
+            border-radius: 18px;
+            padding: 14px 6px;
+            text-align: center;
+            border: 1px solid #e3eaf5;
+        }
+
+        .stat-icon {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .stat-val {
+            font-family: 'SF Mono', monospace;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #1f2f4a;
+        }
+
+        .stat-lbl {
+            font-size: 0.6rem;
+            color: #5f7497;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-top: 3px;
+        }
+
+        .stat.highlight .stat-val {
+            color: #1c7855;
+        }
+
+        .stat.warn .stat-val {
+            color: #b5593a;
+        }
+
         .ticker {
-            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-            padding: 20px; margin: 12px 0; text-align: center; min-height: 120px;
-            display: flex; flex-direction: column; justify-content: center;
-            cursor: pointer; transition: all 0.3s; -webkit-user-select: none; user-select: none;
+            background: #eef3fc;
+            border: 1px solid #d5e1f0;
+            border-radius: 24px;
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.12s;
+            user-select: none;
         }
-        .ticker:active { transform: scale(0.98); }
-        .ticker-quote { font-size: 1rem; font-style: italic; color: var(--gold); line-height: 1.6; margin-bottom: 8px; }
-        .ticker-author { font-size: 0.75rem; color: #555; }
-        .ticker-hint { font-size: 0.6rem; color: #333; margin-top: 8px; }
 
-        /* ===== LIST CARDS ===== */
-        .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin: 12px 0; }
-        .section-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-        .section-title .emoji { font-size: 1.1rem; }
-
-        .h-list { max-height: 300px; overflow-y: auto; }
-        .h-list::-webkit-scrollbar { width: 3px; }
-        .h-list::-webkit-scrollbar-thumb { background: rgba(255,215,0,0.2); border-radius: 10px; }
-
-        .h-item { display: flex; align-items: center; padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.03); gap: 10px; }
-        .h-item:last-child { border-bottom: none; }
-        .h-item .h-emoji { font-size: 1.2rem; flex-shrink: 0; }
-        .h-item .h-info { flex: 1; min-width: 0; }
-        .h-item .h-name { font-size: 0.8rem; font-weight: 600; color: #ddd; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .h-item .h-date { font-size: 0.65rem; color: #555; }
-        .h-item .h-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 100px; flex-shrink: 0; }
-        .h-item .h-badge.upcoming { background: rgba(255,215,0,0.15); color: var(--gold); }
-        .h-item .h-badge.next { background: rgba(255,107,53,0.2); color: var(--orange); animation: badgePulse 2s ease infinite; }
-        @keyframes badgePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,107,53,0.3); } 50% { box-shadow: 0 0 0 6px rgba(255,107,53,0); } }
-        .h-item.is-weekend { opacity: 0.4; }
-
-        /* ===== MILESTONES ===== */
-        .mile-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.03); gap: 12px; }
-        .mile-item:last-child { border-bottom: none; }
-        .mile-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
-        .mile-item.done .mile-dot { background: rgba(0,255,136,0.2); color: var(--green); }
-        .mile-item:not(.done) .mile-dot { background: rgba(255,255,255,0.06); color: #444; }
-        .mile-info { flex: 1; }
-        .mile-title { font-size: 0.8rem; font-weight: 600; }
-        .mile-item.done .mile-title { color: var(--green); }
-        .mile-item:not(.done) .mile-title { color: #666; }
-        .mile-date { font-size: 0.65rem; color: #444; }
-        .mile-pct { font-family: 'Orbitron', monospace; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; }
-        .mile-item.done .mile-pct { color: var(--green); }
-        .mile-item:not(.done) .mile-pct { color: #555; }
-
-        /* ===== SALARY CARD ===== */
-        .salary-card { background: rgba(0,255,136,0.03); border: 1px solid rgba(0,255,136,0.15); border-radius: 20px; padding: 20px; margin: 12px 0; text-align: center; }
-        .salary-input { display: flex; gap: 8px; justify-content: center; margin: 12px 0; }
-        .salary-input input {
-            background: rgba(0,0,0,0.4); border: 1px solid rgba(0,255,136,0.2); color: var(--green);
-            font-family: 'JetBrains Mono', monospace; font-size: 1rem; padding: 8px 12px; border-radius: 10px;
-            width: 140px; text-align: center; outline: none;
+        .ticker:active {
+            transform: scale(0.97);
+            background: #e3ebf7;
         }
-        .salary-input input:focus { border-color: var(--green); box-shadow: 0 0 20px rgba(0,255,136,0.15); }
-        .salary-input button { background: rgba(0,255,136,0.15); border: 1px solid rgba(0,255,136,0.3); color: var(--green); padding: 8px 16px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.8rem; }
-        .salary-amount { font-family: 'Orbitron', monospace; font-size: 1.8rem; font-weight: 900; color: var(--green); text-shadow: 0 0 30px rgba(0,255,136,0.3); margin: 8px 0; }
-        .salary-sub { font-size: 0.7rem; color: #555; }
 
-        /* ===== MOOD ===== */
-        .mood-btns { display: flex; justify-content: center; gap: 8px; margin: 10px 0; }
-        .mood-btn { font-size: 1.6rem; padding: 8px; border-radius: 12px; border: 2px solid transparent; background: rgba(0,0,0,0.3); cursor: pointer; transition: all 0.2s; }
-        .mood-btn:active, .mood-btn.sel { border-color: var(--gold); transform: scale(1.15); }
-        .mood-trail { display: flex; justify-content: center; gap: 3px; flex-wrap: wrap; margin-top: 8px; }
-        .mood-trail span { font-size: 0.9rem; padding: 2px; }
+        .ticker-quote {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1a2a44;
+            line-height: 1.5;
+            font-style: italic;
+        }
 
-        /* ===== CALENDAR ===== */
-        .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .cal-nav button { background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.2); color: var(--gold); width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
-        .cal-nav .cal-month { font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--gold); }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-        .cal-hdr { text-align: center; font-size: 0.55rem; color: #444; padding: 4px 0; text-transform: uppercase; }
-        .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 0.7rem; font-weight: 600; position: relative; }
-        .cal-day.empty { background: transparent; }
-        .cal-day.past { background: rgba(0,255,136,0.2); color: var(--green); }
-        .cal-day.today { background: var(--gold); color: #000; font-weight: 900; box-shadow: 0 0 12px rgba(255,215,0,0.5); animation: todayGlow 2s ease infinite; }
-        @keyframes todayGlow { 0%,100% { box-shadow: 0 0 8px rgba(255,215,0,0.3); } 50% { box-shadow: 0 0 20px rgba(255,215,0,0.7); } }
-        .cal-day.future { background: rgba(255,255,255,0.04); color: #555; }
-        .cal-day.free { background: rgba(0,255,136,0.1); color: var(--green); }
-        .cal-day.is-h::after { content: ''; position: absolute; bottom: 2px; width: 4px; height: 4px; border-radius: 50%; background: var(--orange); }
+        .ticker-author {
+            font-size: 0.75rem;
+            color: #5d7396;
+            margin-top: 6px;
+        }
 
-        .cal-legend { display: flex; justify-content: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
-        .cal-legend span { font-size: 0.55rem; color: #555; display: flex; align-items: center; gap: 4px; }
-        .cal-legend .leg-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .ticker-hint {
+            font-size: 0.55rem;
+            color: #8a9bb8;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
 
-        /* ===== FUN FACTS ===== */
-        .fact-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
-        .fact-item:last-child { border-bottom: none; }
-        .fact-item .f-emoji { font-size: 1.3rem; flex-shrink: 0; }
-        .fact-item .f-text { font-size: 0.8rem; color: #aaa; }
-        .fact-item .f-text strong { color: var(--purple); }
+        .section-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: #1f2f4a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-        /* ===== FOOTER ===== */
-        .footer { text-align: center; padding: 30px 0; font-size: 0.7rem; color: #333; }
-        .footer .heart { color: var(--orange); display: inline-block; animation: heartbeat 1.5s ease infinite; }
-        @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+        .section-title .emoji {
+            font-size: 1.1rem;
+        }
 
-        /* ===== CELEBRATION OVERLAY ===== */
-        .celebrate { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(0,0,0,0.95); flex-direction: column; align-items: center; justify-content: center; }
-        .celebrate.on { display: flex; }
-        .celebrate h1 { font-family: 'Orbitron', monospace; font-size: 2rem; color: var(--gold); text-align: center; animation: celebText 1s ease infinite alternate; }
-        @keyframes celebText { from { transform: scale(1); text-shadow: 0 0 20px rgba(255,215,0,0.5); } to { transform: scale(1.05); text-shadow: 0 0 50px rgba(255,215,0,0.8); } }
+        .h-list {
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
 
-        @media (max-width: 600px) {
-            .header h1 { font-size: 1.5rem; }
-            .cd-num { font-size: 1.6rem; }
+        .h-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .h-list::-webkit-scrollbar-thumb {
+            background: #c5d4e8;
+            border-radius: 12px;
+        }
+
+        .h-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 4px;
+            border-bottom: 1px solid #e8eef8;
+            gap: 10px;
+        }
+
+        .h-item:last-child {
+            border-bottom: none;
+        }
+
+        .h-emoji {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .h-info {
+            flex: 1;
+        }
+
+        .h-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1e2f4a;
+        }
+
+        .h-date {
+            font-size: 0.65rem;
+            color: #607597;
+        }
+
+        .h-badge {
+            font-family: 'SF Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 40px;
+            background: #dee8f5;
+            color: #2d4a70;
+            flex-shrink: 0;
+        }
+
+        .h-badge.next {
+            background: #c5d8f0;
+            color: #1f3d6b;
+        }
+
+        .h-item.is-weekend {
+            opacity: 0.4;
+        }
+
+        /* ----- CALENDAR (color grading) ----- */
+        .cal-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .cal-nav button {
+            background: #eef3fc;
+            border: 1px solid #d6e2f0;
+            color: #1f324f;
+            width: 36px;
+            height: 36px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.1s;
+        }
+
+        .cal-nav button:active {
+            background: #d5e1f0;
+        }
+
+        .cal-month {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #1f2f4a;
+        }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .cal-hdr {
+            text-align: center;
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #60769b;
+            text-transform: uppercase;
+            padding: 6px 0;
+        }
+
+        .cal-day {
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: transparent;
+            color: #1f2f4a;
+            position: relative;
+            transition: 0.1s;
+        }
+
+        .cal-day.empty {
+            background: transparent;
+        }
+
+        /* color grading for passed / remaining */
+        .cal-day.past {
+            background: #c9d8e8;
+            color: #1a314b;
+        }
+
+        .cal-day.today {
+            background: #1f3a5e;
+            color: #fff;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(26, 55, 98, 0.25);
+        }
+
+        .cal-day.future {
+            background: #eef3fc;
+            color: #2f4a6b;
+        }
+
+        .cal-day.weekend {
+            background: #e2e8f2;
+            color: #4e6180;
+        }
+
+        .cal-day.holiday {
+            background: #f7d9d0;
+            color: #964b33;
+        }
+
+        .cal-day.past.holiday {
+            background: #d4bdb6;
+            color: #6d3f2e;
+        }
+
+        .cal-day.free {
+            background: #cfe2d8;
+            color: #1a6040;
+        }
+
+        .cal-legend {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cal-legend span {
+            font-size: 0.6rem;
+            color: #4a6082;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .leg-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .mile-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e3eaf5;
+            gap: 10px;
+        }
+
+        .mile-item:last-child {
+            border-bottom: none;
+        }
+
+        .mile-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 30px;
+            background: #e8eff9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #3b4f6b;
+        }
+
+        .mile-item.done .mile-dot {
+            background: #cfe2d8;
+            color: #1e6b48;
+        }
+
+        .mile-item:not(.done) .mile-dot {
+            background: #eef3fc;
+            color: #60769b;
+        }
+
+        .mile-info {
+            flex: 1;
+        }
+
+        .mile-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .mile-item.done .mile-title {
+            color: #1e6b48;
+        }
+
+        .mile-item:not(.done) .mile-title {
+            color: #334b6b;
+        }
+
+        .mile-date {
+            font-size: 0.6rem;
+            color: #617799;
+        }
+
+        .mile-pct {
+            font-family: 'SF Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #3e5d82;
+        }
+
+        .mile-item.done .mile-pct {
+            color: #1d784c;
+        }
+
+        .mood-btns {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .mood-btn {
+            font-size: 1.6rem;
+            padding: 6px 8px;
+            border-radius: 40px;
+            border: 2px solid transparent;
+            background: #f0f4fc;
+            cursor: pointer;
+            transition: all 0.1s;
+            line-height: 1;
+        }
+
+        .mood-btn:active, .mood-btn.sel {
+            border-color: #2f4f7a;
+            background: #e0eaf8;
+            transform: scale(1.1);
+        }
+
+        .mood-trail {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .mood-trail span {
+            font-size: 1rem;
+            padding: 2px;
+        }
+
+        .fact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 0;
+            border-bottom: 1px solid #e6edf8;
+        }
+
+        .fact-item:last-child {
+            border-bottom: none;
+        }
+
+        .fact-item .f-emoji {
+            font-size: 1.2rem;
+        }
+
+        .fact-item .f-text {
+            font-size: 0.8rem;
+            color: #2a405e;
+        }
+
+        .fact-item .f-text strong {
+            color: #1b4370;
+            font-weight: 700;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px 0 8px;
+            font-size: 0.7rem;
+            color: #687b9e;
+            border-top: 1px solid #d8e2f0;
+            margin-top: 12px;
+        }
+
+        .footer .heart {
+            color: #b14d3a;
+            display: inline-block;
+            animation: heartBeat 1.8s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .celebrate {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #f5f7fc;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            backdrop-filter: blur(6px);
+        }
+
+        .celebrate.on {
+            display: flex;
+        }
+
+        .celebrate h1 {
+            font-size: 2.5rem;
+            color: #1a2f4a;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .celebrate p {
+            color: #2f5780;
+            font-size: 1.2rem;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 420px) {
+            .cd-num {
+                font-size: 1.4rem;
+                padding: 4px 0;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+            .stat {
+                padding: 10px 4px;
+            }
+            .stat-val {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="bg-grid"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
     <div class="app">
+
         <!-- Header -->
         <div class="header">
             <div class="bank-badge">
-                <span class="dot"></span>
-                CSB BANK · NAVI MUMBAI
+                <span class="dot"></span> CSB BANK · NAVI MUMBAI
             </div>
             <div class="title">
-                <span class="line1">COUNTING DOWN TO</span>
+                <span class="line1">Counting down to</span>
                 <span class="line2">FREEDOM</span>
             </div>
             <div class="contract-info">
                 <span>21 Mar 2026</span> → <span>31 Mar 2027</span>
             </div>
-        </div>
-
-        <!-- Live Clock -->
-        <div class="live-clock" id="liveClock"></div>
-
-        <!-- Heartbeat Line -->
-        <div class="heartbeat-container">
-            <svg class="heartbeat-svg" id="heartbeatSvg" viewBox="0 0 400 40" preserveAspectRatio="none"></svg>
+            <div class="live-clock" id="liveClock">—</div>
         </div>
 
         <!-- Main Countdown -->
-        <div class="countdown-card">
-            <div class="countdown-label">⏰ Until Freedom</div>
+        <div class="card countdown-card">
+            <div class="countdown-label">⏳ until freedom</div>
             <div class="countdown-grid">
                 <div class="cd-item"><div class="cd-num" id="cdMon">--</div><div class="cd-lbl">Mon</div></div>
                 <div class="cd-item"><div class="cd-num" id="cdDay">--</div><div class="cd-lbl">Days</div></div>
@@ -348,7 +858,6 @@
                 <div class="cd-item"><div class="cd-num" id="cdMin">--</div><div class="cd-lbl">Min</div></div>
                 <div class="cd-item"><div class="cd-num" id="cdSec">--</div><div class="cd-lbl">Sec</div></div>
             </div>
-            <!-- Seconds Circle -->
             <div class="seconds-ring">
                 <svg viewBox="0 0 80 80">
                     <circle class="ring-bg" cx="40" cy="40" r="35"/>
@@ -357,94 +866,84 @@
                     <text class="ring-label" x="40" y="48" transform="rotate(90,40,40)">SEC</text>
                 </svg>
             </div>
-            <div class="freedom-date-text">🗓️ Freedom: Wednesday, March 31, 2027</div>
+            <div class="freedom-date-text">🗓️ Wednesday, 31 March 2027</div>
         </div>
 
-        <!-- Progress Card -->
-        <div class="progress-card">
+        <!-- Progress -->
+        <div class="card progress-card">
             <div class="progress-header">
-                <span class="progress-title">📊 Contract Progress</span>
+                <span class="progress-title">📊 Contract progress</span>
                 <span class="progress-pct" id="pctText">0%</span>
             </div>
             <div class="progress-track">
-                <div class="progress-fill" id="progressFill" style="width:0%">
-                    <div class="progress-glow"></div>
-                </div>
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
             </div>
             <div class="progress-stats">
                 <span class="done">✅ <span id="dDone">0</span> days done</span>
-                <span class="left">🔥 <span id="dLeft">0</span> days left</span>
+                <span class="left">⏳ <span id="dLeft">0</span> days left</span>
             </div>
         </div>
 
-        <!-- Next Holiday Card -->
+        <!-- Next Holiday -->
         <div class="holiday-card" id="nextHolCard">
-            <div class="hc-label">🎉 Next Bank Holiday</div>
-            <div class="hc-name" id="nhName">Loading...</div>
-            <div class="hc-date" id="nhDate"></div>
+            <div class="holiday-left">
+                <div class="hc-label">🎉 next bank holiday</div>
+                <div class="hc-name" id="nhName">Loading...</div>
+                <div class="hc-date" id="nhDate"></div>
+            </div>
             <div class="hc-days" id="nhDays">--</div>
         </div>
 
-        <!-- Stats Grid -->
+        <!-- Stats -->
         <div class="stats-grid">
-            <div class="stat highlight"><div class="stat-icon">💼</div><div class="stat-val" id="sWork">--</div><div class="stat-lbl">Actual Workdays</div></div>
-            <div class="stat warn"><div class="stat-icon">🎉</div><div class="stat-val" id="sHol">--</div><div class="stat-lbl">Holidays Left</div></div>
-            <div class="stat"><div class="stat-icon">📅</div><div class="stat-val" id="sWeek">--</div><div class="stat-lbl">Weeks Left</div></div>
-            <div class="stat"><div class="stat-icon">🌅</div><div class="stat-val" id="sWknd">--</div><div class="stat-lbl">Weekends Left</div></div>
-            <div class="stat"><div class="stat-icon">🌙</div><div class="stat-val" id="sSleep">--</div><div class="stat-lbl">Sleeps Left</div></div>
-            <div class="stat"><div class="stat-icon">🚂</div><div class="stat-val" id="sComm">--</div><div class="stat-lbl">Commutes Left</div></div>
+            <div class="stat highlight"><div class="stat-icon">💼</div><div class="stat-val" id="sWork">--</div><div class="stat-lbl">Workdays</div></div>
+            <div class="stat warn"><div class="stat-icon">🎉</div><div class="stat-val" id="sHol">--</div><div class="stat-lbl">Holidays</div></div>
+            <div class="stat"><div class="stat-icon">📅</div><div class="stat-val" id="sWeek">--</div><div class="stat-lbl">Weeks</div></div>
+            <div class="stat"><div class="stat-icon">🌆</div><div class="stat-val" id="sWknd">--</div><div class="stat-lbl">Weekends</div></div>
+            <div class="stat"><div class="stat-icon">🌙</div><div class="stat-val" id="sSleep">--</div><div class="stat-lbl">Sleeps</div></div>
+            <div class="stat"><div class="stat-icon">🚇</div><div class="stat-val" id="sComm">--</div><div class="stat-lbl">Commutes</div></div>
         </div>
 
-        <!-- Motivation Ticker -->
+        <!-- Quote Ticker -->
         <div class="ticker" id="ticker" onclick="newQuote()">
             <div class="ticker-quote" id="tQuote">"Loading..."</div>
             <div class="ticker-author" id="tAuthor"></div>
-            <div class="ticker-hint">tap for new quote</div>
-        </div>
-
-        <!-- Salary Tracker -->
-        <div class="salary-card">
-            <div class="section-title"><span class="emoji">💰</span> Money Earned</div>
-            <div class="salary-input">
-                <input type="number" id="salIn" placeholder="Monthly ₹">
-                <button onclick="saveSalary()">Save</button>
-            </div>
-            <div class="salary-amount" id="salAmt">₹0</div>
-            <div class="salary-sub" id="salSub">Enter your monthly salary above</div>
+            <div class="ticker-hint">tap for a new thought</div>
         </div>
 
         <!-- Holiday List -->
-        <div class="section-card">
-            <div class="section-title"><span class="emoji">📋</span> Remaining Holidays</div>
+        <div class="card">
+            <div class="section-title"><span class="emoji">📋</span> Remaining holidays</div>
             <div class="h-list" id="hList"></div>
         </div>
 
-        <!-- Calendar -->
-        <div class="section-card">
+        <!-- Calendar (color grading) -->
+        <div class="card">
             <div class="section-title"><span class="emoji">📅</span> Calendar</div>
             <div class="cal-nav">
                 <button onclick="chgMonth(-1)">◀</button>
-                <span class="cal-month" id="calLbl"></span>
+                <span class="cal-month" id="calLbl">—</span>
                 <button onclick="chgMonth(1)">▶</button>
             </div>
             <div class="cal-grid" id="calGrid"></div>
             <div class="cal-legend">
-                <span><span class="leg-dot" style="background:rgba(0,255,136,0.4)"></span> Done</span>
-                <span><span class="leg-dot" style="background:#ffd700"></span> Today</span>
-                <span><span class="leg-dot" style="background:rgba(255,255,255,0.1)"></span> Left</span>
-                <span><span class="leg-dot" style="background:#ff6b35;border:1px solid #ffd700"></span> Holiday</span>
+                <span><span class="leg-dot" style="background:#c9d8e8;"></span> passed</span>
+                <span><span class="leg-dot" style="background:#1f3a5e;"></span> today</span>
+                <span><span class="leg-dot" style="background:#eef3fc;border:1px solid #b0c4db;"></span> remaining</span>
+                <span><span class="leg-dot" style="background:#f7d9d0;"></span> holiday</span>
+                <span><span class="leg-dot" style="background:#e2e8f2;"></span> weekend</span>
             </div>
         </div>
 
         <!-- Milestones -->
-        <div class="section-card">
+        <div class="card">
             <div class="section-title"><span class="emoji">🏆</span> Milestones</div>
             <div id="mileList"></div>
         </div>
 
-        <!-- Mood Tracker -->
-        <div class="section-card">
-            <div class="section-title"><span class="emoji">😊</span> Today's Mood</div>
+        <!-- Mood -->
+        <div class="card">
+            <div class="section-title"><span class="emoji">😊</span> Today's mood</div>
             <div class="mood-btns">
                 <button class="mood-btn" onclick="setMood('😩')">😩</button>
                 <button class="mood-btn" onclick="setMood('😤')">😤</button>
@@ -456,415 +955,426 @@
             <div class="mood-trail" id="moodTrail"></div>
         </div>
 
-        <!-- Fun Facts -->
-        <div class="section-card">
-            <div class="section-title"><span class="emoji">🎯</span> Fun Perspective</div>
+        <!-- Fun facts -->
+        <div class="card">
+            <div class="section-title"><span class="emoji">🎯</span> Fun perspective</div>
             <div id="funFacts"></div>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
             <p>Built with <span class="heart">❤️</span> for surviving CSB Bank</p>
-            <p>This is temporary. Freedom is permanent. 🚀</p>
+            <p>This is temporary. Freedom is permanent.</p>
         </div>
     </div>
 
-    <!-- Celebration Screen -->
+    <!-- Celebration -->
     <div class="celebrate" id="celeb">
-        <h1>🎉🎊 YOU'RE FREE! 🎊🎉</h1>
-        <p style="color:#ffd700;font-size:1.2rem;margin-top:16px;">The CSB contract is OVER!</p>
+        <h1>🎉 YOU ARE FREE! 🎉</h1>
+        <p>The CSB contract is officially over.</p>
     </div>
 
-<script>
-// ===== CONFIG =====
-const START = new Date(2026, 2, 21);       // March 21, 2026
-const END = new Date(2027, 2, 31, 18, 0);  // March 31, 2027 6PM
+    <script>
+        // ----- CONFIG -----
+        const START = new Date(2026, 2, 21);
+        const END = new Date(2027, 2, 31, 18, 0);
 
-// ===== EXACT MAHARASHTRA CSB BANK HOLIDAY DATABASE =====
-const H = [
-    // 2026 March to Dec Public Holidays
-    ['2026-03-03','Holi (Second Day)','🎨'],
-    ['2026-03-19','Gudhi Padwa','🌸'],
-    ['2026-03-21','Ramzan-Id (Id-Ul-Fitr)','🌙'],
-    ['2026-03-26','Ram Navami','🏹'],
-    ['2026-03-31','Mahavir Janmakalyanak','🙏'],
-    ['2026-04-03','Good Friday','✝️'],
-    ['2026-04-14','Dr. Ambedkar Jayanti','📜'],
-    ['2026-05-01','Maharashtra Din / Buddha Pournima','✊'],
-    ['2026-05-28','Bakri Id (Id-Uz-Zuha)','🌙'],
-    ['2026-06-26','Moharum','🕌'],
-    ['2026-08-15','Independence Day / Parsi New Year','🇮🇳'],
-    ['2026-08-26','Id-E-Milad','🌙'],
-    ['2026-09-14','Ganesh Chaturthi','🔱'],
-    ['2026-10-02','Mahatma Gandhi Jayanti','🕊️'],
-    ['2026-10-20','Dasara','🏹'],
-    ['2026-11-08','Diwali Amavasya (Laxmi Pujan)','🪔'],
-    ['2026-11-10','Diwali (Bali Pratipada)','🪔'],
-    ['2026-11-24','Guru Nanak Jayanti','🙏'],
-    ['2026-12-25','Christmas','🎄'],
+        // ----- HOLIDAY DATABASE (Maharashtra + CSB pattern) -----
+        const H = [
+            ['2026-03-03','Holi (Second Day)','🎨'],
+            ['2026-03-19','Gudhi Padwa','🌸'],
+            ['2026-03-21','Ramzan-Id (Id-Ul-Fitr)','🌙'],
+            ['2026-03-26','Ram Navami','🏹'],
+            ['2026-03-31','Mahavir Janmakalyanak','🙏'],
+            ['2026-04-03','Good Friday','✝️'],
+            ['2026-04-14','Dr. Ambedkar Jayanti','📜'],
+            ['2026-05-01','Maharashtra Din / Buddha Pournima','✊'],
+            ['2026-05-28','Bakri Id (Id-Uz-Zuha)','🌙'],
+            ['2026-06-26','Moharum','🕌'],
+            ['2026-08-15','Independence Day / Parsi New Year','🇮🇳'],
+            ['2026-08-26','Id-E-Milad','🌙'],
+            ['2026-09-14','Ganesh Chaturthi','🔱'],
+            ['2026-10-02','Mahatma Gandhi Jayanti','🕊️'],
+            ['2026-10-20','Dasara','🏹'],
+            ['2026-11-08','Diwali Amavasya (Laxmi Pujan)','🪔'],
+            ['2026-11-10','Diwali (Bali Pratipada)','🪔'],
+            ['2026-11-24','Guru Nanak Jayanti','🙏'],
+            ['2026-12-25','Christmas','🎄'],
+            ['2027-01-26','Republic Day','🇮🇳'],
+            ['2027-02-19','Chhatrapati Shivaji Maharaj Jayanti','⚔️'],
+            ['2027-03-06','Mahashivratri','🔱'],
+            ['2027-03-10','Ramzan-Id (Id-ul-Fitr)','🌙'],
+            ['2027-03-22','Holi','🎨'],
+            ['2027-03-26','Good Friday','✝️'],
+            // 2nd & 4th Saturdays
+            ['2026-03-28','4th Saturday','📅'],
+            ['2026-04-11','2nd Saturday','📅'],['2026-04-25','4th Saturday','📅'],
+            ['2026-05-09','2nd Saturday','📅'],['2026-05-23','4th Saturday','📅'],
+            ['2026-06-13','2nd Saturday','📅'],['2026-06-27','4th Saturday','📅'],
+            ['2026-07-11','2nd Saturday','📅'],['2026-07-25','4th Saturday','📅'],
+            ['2026-08-08','2nd Saturday','📅'],['2026-08-22','4th Saturday','📅'],
+            ['2026-09-12','2nd Saturday','📅'],['2026-09-26','4th Saturday','📅'],
+            ['2026-10-10','2nd Saturday','📅'],['2026-10-24','4th Saturday','📅'],
+            ['2026-11-14','2nd Saturday','📅'],['2026-11-28','4th Saturday','📅'],
+            ['2026-12-12','2nd Saturday','📅'],['2026-12-26','4th Saturday','📅'],
+            ['2027-01-09','2nd Saturday','📅'],['2027-01-23','4th Saturday','📅'],
+            ['2027-02-13','2nd Saturday','📅'],['2027-02-27','4th Saturday','📅'],
+            ['2027-03-13','2nd Saturday','📅'],['2027-03-27','4th Saturday','📅']
+        ];
 
-    // 2027 Jan to Mar Public Holidays
-    ['2027-01-26','Republic Day','🇮🇳'],
-    ['2027-02-19','Chhatrapati Shivaji Maharaj Jayanti','⚔️'],
-    ['2027-03-06','Mahashivratri','🔱'],
-    ['2027-03-10','Ramzan-Id (Id-ul-Fitr)','🌙'],
-    ['2027-03-22','Holi','🎨'],
-    ['2027-03-26','Good Friday','✝️'],
+        const holidays = H.map(h => {
+            const p = h[0].split('-');
+            return { date: new Date(+p[0], +p[1]-1, +p[2]), name: h[1], emoji: h[2] };
+        }).sort((a,b) => a.date - b.date);
 
-    // standard 2nd & 4th Saturday Bank Holidays (Contract Period)
-    ['2026-03-28','4th Saturday','📅'],
-    ['2026-04-11','2nd Saturday','📅'],['2026-04-25','4th Saturday','📅'],
-    ['2026-05-09','2nd Saturday','📅'],['2026-05-23','4th Saturday','📅'],
-    ['2026-06-13','2nd Saturday','📅'],['2026-06-27','4th Saturday','📅'],
-    ['2026-07-11','2nd Saturday','📅'],['2026-07-25','4th Saturday','📅'],
-    ['2026-08-08','2nd Saturday','📅'],['2026-08-22','4th Saturday','📅'],
-    ['2026-09-12','2nd Saturday','📅'],['2026-09-26','4th Saturday','📅'],
-    ['2026-10-10','2nd Saturday','📅'],['2026-10-24','4th Saturday','📅'],
-    ['2026-11-14','2nd Saturday','📅'],['2026-11-28','4th Saturday','📅'],
-    ['2026-12-12','2nd Saturday','📅'],['2026-12-26','4th Saturday','📅'],
-    ['2027-01-09','2nd Saturday','📅'],['2027-01-23','4th Saturday','📅'],
-    ['2027-02-13','2nd Saturday','📅'],['2027-02-27','4th Saturday','📅'],
-    ['2027-03-13','2nd Saturday','📅'],['2027-03-27','4th Saturday','📅']
-];
+        const holSet = new Set();
+        holidays.forEach(h => holSet.add(`${h.date.getFullYear()}-${h.date.getMonth()}-${h.date.getDate()}`));
 
-const holidays = H.map(h => {
-    const p = h[0].split('-');
-    return { date: new Date(+p[0], +p[1]-1, +p[2]), name: h[1], emoji: h[2] };
-}).sort((a, b) => a.date - b.date);
-
-const holSet = new Set();
-holidays.forEach(h => holSet.add(`${h.date.getFullYear()}-${h.date.getMonth()}-${h.date.getDate()}`));
-
-function isHol(d) { return holSet.has(`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`); }
-function dayKey(d) { return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; }
-
-// ===== HEARTBEAT LINE =====
-let hbPoints = [];
-function initHeartbeat() { for (let i = 0; i < 100; i++) hbPoints.push(20); }
-initHeartbeat();
-
-function updateHeartbeat() {
-    hbPoints.shift();
-    const now = new Date();
-    const sec = now.getSeconds();
-    if (sec !== updateHeartbeat.lastSec) {
-        hbPoints.push(5);
-        setTimeout(() => {
-            hbPoints[hbPoints.length - 1] = 35;
-            setTimeout(() => {
-                hbPoints[hbPoints.length - 1] = 10;
-                setTimeout(() => {
-                    hbPoints[hbPoints.length - 1] = 28;
-                    setTimeout(() => { hbPoints[hbPoints.length - 1] = 20; }, 50);
-                }, 50);
-            }, 50);
-        }, 0);
-        updateHeartbeat.lastSec = sec;
-    } else {
-        hbPoints.push(20);
-    }
-    const svg = document.getElementById('heartbeatSvg');
-    const w = 400, h = 40;
-    let d = `M 0 ${hbPoints[0]}`;
-    for (let i = 1; i < hbPoints.length; i++) { d += ` L ${(i/99)*w} ${hbPoints[i]}`; }
-    svg.innerHTML = `<path class="heartbeat-line" d="${d}"/>`;
-}
-updateHeartbeat.lastSec = -1;
-
-// ===== LIVE CLOCK =====
-function updateClock() {
-    const now = new Date();
-    const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true };
-    document.getElementById('liveClock').textContent = now.toLocaleString('en-IN', opts).toUpperCase();
-}
-
-let prev = { m:null, d:null, h:null, mi:null, s:null };
-
-// ===== MAIN COUNTDOWN AND CALCULATOR =====
-function updateCountdown() {
-    const now = new Date();
-    const diff = END - now;
-
-    if (diff <= 0) {
-        document.getElementById('celeb').classList.add('on');
-        return;
-    }
-
-    const ts = Math.floor(diff/1000);
-    const tm = Math.floor(ts/60);
-    const th = Math.floor(tm/60);
-    const td = Math.floor(th/24);
-
-    let mon = 0, tmp = new Date(now);
-    while (true) {
-        let nx = new Date(tmp); nx.setMonth(nx.getMonth()+1);
-        if (nx > END) break;
-        mon++; tmp = nx;
-    }
-    const rd = Math.floor((END - tmp)/864e5);
-
-    const vals = { m: mon, d: rd, h: th%24, mi: tm%60, s: ts%60 };
-
-    function upd(id, val, key) {
-        const el = document.getElementById(id);
-        const v = String(val).padStart(2, '0');
-        if (prev[key] !== null && prev[key] !== val) {
-            el.classList.remove('tick');
-            void el.offsetWidth;
-            el.classList.add('tick');
+        function isHol(d) {
+            return holSet.has(`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`);
         }
-        el.textContent = v;
-        prev[key] = val;
-    }
 
-    upd('cdMon', vals.m, 'm');
-    upd('cdDay', vals.d, 'd');
-    upd('cdHrs', vals.h, 'h');
-    upd('cdMin', vals.mi, 'mi');
-    upd('cdSec', vals.s, 's');
-
-    // Ring Offset
-    const circumference = 2 * Math.PI * 35;
-    const offset = circumference - (vals.s / 60) * circumference;
-    document.getElementById('secRing').style.strokeDasharray = circumference;
-    document.getElementById('secRing').style.strokeDashoffset = offset;
-    document.getElementById('secText').textContent = String(vals.s).padStart(2,'0');
-
-    // Progress
-    const total = END - START;
-    const elapsed = now - START;
-    const pct = Math.min(Math.max((elapsed/total)*100, 0), 100);
-    const done = Math.max(Math.floor(elapsed/864e5), 0);
-
-    document.getElementById('pctText').textContent = pct.toFixed(2) + '%';
-    document.getElementById('progressFill').style.width = pct.toFixed(2) + '%';
-    document.getElementById('dDone').textContent = done;
-    document.getElementById('dLeft').textContent = td;
-
-    // Remaining Workdays / Saturdays calculation
-    let wknds=0, wkdays=0, holsLeft=0;
-    let dd = new Date(now);
-    for (let i=0; i<td; i++) {
-        const day = dd.getDay();
-        if (day===0||day===6) {
-            wknds++;
-            if (isHol(dd)) holsLeft++; // Keep track of weekend holidays
-        } else {
-            if (isHol(dd)) holsLeft++;
-            else wkdays++;
+        function isWeekend(d) {
+            const day = d.getDay();
+            return day === 0 || day === 6;
         }
-        dd.setDate(dd.getDate()+1);
-    }
 
-    document.getElementById('sWork').textContent = wkdays;
-    document.getElementById('sHol').textContent = holsLeft;
-    document.getElementById('sWeek').textContent = Math.floor(td/7);
-    document.getElementById('sWknd').textContent = Math.ceil(wknds/2);
-    document.getElementById('sSleep').textContent = td;
-    document.getElementById('sComm').textContent = wkdays * 2;
-
-    updateNextHoliday(now);
-    updateClock();
-    updateHeartbeat();
-}
-
-function updateNextHoliday(now) {
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    let found = null;
-    for (const h of holidays) {
-        if (h.date >= today && h.date.getDay() !== 0 && h.date.getDay() !== 6) {
-            found = h; break;
+        function dayKey(d) {
+            return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
         }
-    }
-    if (!found) {
-        document.getElementById('nhName').textContent = 'No more holidays!';
-        document.getElementById('nhDate').textContent = 'Freedom is right around the corner!';
-        document.getElementById('nhDays').textContent = '🎉';
-        return;
-    }
-    const dd = Math.floor((found.date - today)/864e5);
-    document.getElementById('nhName').textContent = `${found.emoji} ${found.name}`;
-    document.getElementById('nhDate').textContent = found.date.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-    document.getElementById('nhDays').textContent = dd === 0 ? '🎉 TODAY!' : `${dd} day${dd>1?'s':''}`;
-}
 
-// ===== RENDER REMAINING HOLIDAYS =====
-function renderHolidays() {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const el = document.getElementById('hList');
-    let html = '', isFirst = true;
+        // ----- DOM refs -----
+        const $ = id => document.getElementById(id);
+        const cdMon = $('cdMon'), cdDay = $('cdDay'), cdHrs = $('cdHrs'), cdMin = $('cdMin'), cdSec = $('cdSec');
+        const secRing = $('secRing'), secText = $('secText');
+        const pctText = $('pctText'), progressFill = $('progressFill');
+        const dDone = $('dDone'), dLeft = $('dLeft');
+        const sWork = $('sWork'), sHol = $('sHol'), sWeek = $('sWeek'), sWknd = $('sWknd'), sSleep = $('sSleep'), sComm = $('sComm');
+        const nhName = $('nhName'), nhDate = $('nhDate'), nhDays = $('nhDays');
+        const liveClock = $('liveClock');
 
-    holidays.forEach(h => {
-        if (h.date < today) return;
-        const dd = Math.floor((h.date - today)/864e5);
-        const isWknd = h.date.getDay()===0||h.date.getDay()===6;
-        const isNext = isFirst && !isWknd;
-        if (isNext) isFirst = false;
+        // ----- helpers -----
+        function pad(n) { return String(n).padStart(2, '0'); }
 
-        html += `<div class="h-item ${isWknd?'is-weekend':''}">
-            <span class="h-emoji">${h.emoji}</span>
-            <div class="h-info">
-                <div class="h-name">${h.name}</div>
-                <div class="h-date">${h.date.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'})}</div>
-            </div>
-            <span class="h-badge ${isNext?'next':'upcoming'}">${dd===0?'TODAY':dd+'d'}</span>
-        </div>`;
-    });
+        // ----- update countdown & stats -----
+        function updateAll() {
+            const now = new Date();
+            const diff = END - now;
 
-    el.innerHTML = html || '<p style="text-align:center;color:#444;padding:20px;">No remaining holidays! Freedom is here! 🎉</p>';
-}
-renderHolidays();
+            if (diff <= 0) {
+                $('celeb').classList.add('on');
+                return;
+            }
 
-// ===== QUOTES =====
-const Q = [
-    ["The only way out is through.","Robert Frost"],
-    ["Tough times never last, but tough people do.","Robert H. Schuller"],
-    ["This too shall pass.","Persian Proverb"],
-    ["Stars can't shine without darkness.","D.H. Sidebottom"],
-    ["You didn't come this far to only come this far.","Unknown"],
-    ["The darkest hour has only sixty minutes.","Morris Mandel"],
-    ["Fall seven times, stand up eight.","Japanese Proverb"],
-    ["Ek din aayega wo din... jab alarm nahi bajega!","Your Heart 💛"],
-    ["Sab kuch temporary hai, including CSB Bank!","Navi Mumbai Wisdom"],
-    ["Your contract has an end date. Your potential doesn't.","You"],
-    ["After the contract: No boss, no targets, just YOU.","Freedom"],
-    ["Difficult roads often lead to beautiful destinations.","Zig Ziglar"],
-    ["A river cuts rock not by power but persistence.","Jim Watkins"],
-    ["Your future self is watching. Make them proud.","Unknown"],
-    ["Every second on this clock is a second you'll never work again.","Mathematics"],
-    ["March 31, 2027 is locked and loaded. Keep going!","Freedom Target"],
-];
+            const totalSec = Math.floor(diff / 1000);
+            const totalMin = Math.floor(totalSec / 60);
+            const totalHr = Math.floor(totalMin / 60);
+            const totalDays = Math.floor(totalHr / 24);
 
-function newQuote() {
-    const q = Q[Math.floor(Math.random()*Q.length)];
-    document.getElementById('tQuote').textContent = `"${q[0]}"`;
-    document.getElementById('tAuthor').textContent = `— ${q[1]}`;
-    document.getElementById('ticker').style.transform = 'scale(0.97)';
-    setTimeout(() => document.getElementById('ticker').style.transform = '', 150);
-}
-newQuote();
+            // months left
+            let mon = 0, tmp = new Date(now);
+            while (true) {
+                let nx = new Date(tmp); nx.setMonth(nx.getMonth() + 1);
+                if (nx > END) break;
+                mon++;
+                tmp = nx;
+            }
+            const remDays = Math.floor((END - tmp) / 864e5);
 
-// ===== CALENDAR =====
-let cM = new Date().getMonth(), cY = new Date().getFullYear();
-function chgMonth(d) { cM+=d; if(cM>11){cM=0;cY++;}if(cM<0){cM=11;cY--;}renderCal(); }
+            // update digits with tick
+            function upd(el, val, prevKey) {
+                const str = pad(val);
+                if (el.dataset.prev !== undefined && el.dataset.prev !== str) {
+                    el.classList.remove('tick');
+                    void el.offsetWidth;
+                    el.classList.add('tick');
+                }
+                el.textContent = str;
+                el.dataset.prev = str;
+            }
 
-function renderCal() {
-    const mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    document.getElementById('calLbl').textContent=`${mn[cM]} ${cY}`;
-    const g=document.getElementById('calGrid');g.innerHTML='';
-    ['S','M','T','W','T','F','S'].forEach(d=>{const e=document.createElement('div');e.className='cal-hdr';e.textContent=d;g.appendChild(e);});
-    const first=new Date(cY,cM,1).getDay(), dim=new Date(cY,cM+1,0).getDate(), now=new Date();
-    for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-day empty';g.appendChild(e);}
-    for(let d=1;d<=dim;d++){
-        const e=document.createElement('div'),td=new Date(cY,cM,d);
-        const tk=dayKey(td), nk=dayKey(now);
-        e.textContent=d;
-        let cls='cal-day';
-        if(tk===nk) cls+=' today';
-        else if(td<now&&td>=START) cls+=' past';
-        else if(td>END) cls+=' free';
-        else if(td>now) cls+=' future';
-        if(isHol(td)) cls+=' is-h';
-        e.className=cls;
-        g.appendChild(e);
-    }
-}
-renderCal();
+            upd(cdMon, mon, 'm');
+            upd(cdDay, remDays, 'd');
+            upd(cdHrs, totalHr % 24, 'h');
+            upd(cdMin, totalMin % 60, 'mi');
+            upd(cdSec, totalSec % 60, 's');
 
-// ===== MILESTONES =====
-function renderMiles() {
-    const now=new Date(),total=END-START,elapsed=now-START,pct=(elapsed/total)*100;
-    const ms = [
-        [10,"10% - First Steps! 🌱"],[25,"25% - Quarter Way! 🏃"],
-        [33,"33% - One Third! ⚡"],[50,"50% - Halfway Mark! 🏔️"],
-        [60,"60% - Past the Hump! 🔥"],[70,"70% - Final Stretch! 💪"],
-        [75,"75% - Last Quarter! 🏁"],[80,"80% - Smell Freedom! 🌊"],
-        [90,"90% - Single Digits! 🚀"],[95,"95% - SO CLOSE! 👑"],
-        [100,"100% - FREEDOM! 🦅"]
-    ];
-    const el=document.getElementById('mileList');el.innerHTML='';
-    ms.forEach(m=>{
-        const done=pct>=m[0];
-        const dd=Math.floor((m[0]/100)*(total/864e5));
-        const md=new Date(START.getTime()+dd*864e5);
-        el.innerHTML+=`<div class="mile-item ${done?'done':''}">
-            <div class="mile-dot">${done?'✓':''}</div>
-            <div class="mile-info">
-                <div class="mile-title">${m[1]}</div>
-                <div class="mile-date">${md.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div>
-            </div>
-            <div class="mile-pct">${done?'DONE':m[0]+'%'}</div>
-        </div>`;
-    });
-}
-renderMiles();
+            // seconds ring
+            const circumference = 2 * Math.PI * 35;
+            const offset = circumference - ((totalSec % 60) / 60) * circumference;
+            secRing.style.strokeDasharray = circumference;
+            secRing.style.strokeDashoffset = offset;
+            secText.textContent = pad(totalSec % 60);
 
-// ===== SALARY TRACKER =====
-function saveSalary(){localStorage.setItem('csbSal',document.getElementById('salIn').value);updateSal();}
-function updateSal() {
-    const s=parseFloat(localStorage.getItem('csbSal')||document.getElementById('salIn').value||0);
-    if(!s)return;document.getElementById('salIn').value=s;
-    const now=new Date();
-    
-    // Calculate months elapsed since start
-    let mw = (now.getFullYear() - START.getFullYear()) * 12 + (now.getMonth() - START.getMonth());
-    const dim = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-    const currentMonthFraction = now.getDate() / dim;
-    const totalMonthsElapsed = Math.max(0, mw + currentMonthFraction);
-    
-    const earned = Math.floor(totalMonthsElapsed * s);
-    document.getElementById('salAmt').textContent='₹'+earned.toLocaleString('en-IN');
-    
-    // Remaining months calculations
-    const ml=Math.max(0, Math.floor((END-now)/2592e6));
-    document.getElementById('salSub').textContent=`₹${(ml*s).toLocaleString('en-IN')} still to earn (~${ml} months)`;
-}
-updateSal();
+            // progress
+            const total = END - START;
+            const elapsed = now - START;
+            const pct = Math.min(Math.max((elapsed / total) * 100, 0), 100);
+            const doneDays = Math.max(Math.floor(elapsed / 864e5), 0);
 
-// ===== MOOD TRAIL =====
-function setMood(e){
-    const t=new Date().toDateString();
-    let m=JSON.parse(localStorage.getItem('csbMood')||'{}');
-    m[t]=e;localStorage.setItem('csbMood',JSON.stringify(m));
-    document.querySelectorAll('.mood-btn').forEach(b=>b.classList.toggle('sel',b.textContent.trim()===e));
-    renderMood();
-}
-function renderMood(){
-    const m=JSON.parse(localStorage.getItem('csbMood')||'{}');
-    const c=document.getElementById('moodTrail');c.innerHTML='';
-    const today=new Date();
-    for(let i=29;i>=0;i--){
-        const d=new Date(today);d.setDate(d.getDate()-i);
-        c.innerHTML+=`<span title="${d.toLocaleDateString()}">${m[d.toDateString()]||'·'}</span>`;
-    }
-    const tm=m[today.toDateString()];
-    if(tm)document.querySelectorAll('.mood-btn').forEach(b=>b.classList.toggle('sel',b.textContent.trim()===tm));
-}
-renderMood();
+            pctText.textContent = pct.toFixed(1) + '%';
+            progressFill.style.width = pct.toFixed(1) + '%';
+            dDone.textContent = doneDays;
+            dLeft.textContent = totalDays;
 
-// ===== FUN PERSPECTIVE PERSISTENCE =====
-function renderFacts(){
-    const dl=Math.floor((END-new Date())/864e5);
-    const wk=Math.floor(dl*5/7);
-    const facts=[
-        ['🍿',`<strong>${dl*2}</strong> movies you can watch before freedom`],
-        ['🎵',`<strong>${wk*50}</strong> songs during commute left`],
-        ['📱',`<strong>${dl*96}</strong> phone checks remaining`],
-        ['🌧️',`Only <strong>${Math.max(0, Math.floor(dl/5))}</strong> Mumbai rains to dodge`],
-        ['💤',`<strong>${(dl*8).toLocaleString()}</strong> hours of sleep until free`],
-        ['📊',`~<strong>${wk}</strong> Excel sheets left`],
-        ['☕',`<strong>${wk*2}</strong> office coffees remaining`],
-    ];
-    const el=document.getElementById('funFacts');el.innerHTML='';
-    facts.forEach(f=>el.innerHTML+=`<div class="fact-item"><span class="f-emoji">${f[0]}</span><span class="f-text">${f[1]}</span></div>`);
-}
-renderFacts();
+            // stats
+            let wknds = 0, wkdays = 0, holsLeft = 0;
+            let dd = new Date(now);
+            for (let i = 0; i < totalDays; i++) {
+                const day = dd.getDay();
+                if (day === 0 || day === 6) {
+                    wknds++;
+                    if (isHol(dd)) holsLeft++;
+                } else {
+                    if (isHol(dd)) holsLeft++;
+                    else wkdays++;
+                }
+                dd.setDate(dd.getDate() + 1);
+            }
 
-// ===== UPDATE INTERVALS =====
-updateCountdown();
-setInterval(updateCountdown, 1000);
-setInterval(renderHolidays, 3600000); // Check for holiday updates once an hour
-</script>
+            sWork.textContent = wkdays;
+            sHol.textContent = holsLeft;
+            sWeek.textContent = Math.floor(totalDays / 7);
+            sWknd.textContent = Math.ceil(wknds / 2);
+            sSleep.textContent = totalDays;
+            sComm.textContent = wkdays * 2;
+
+            // next holiday
+            updateNextHoliday(now);
+
+            // clock
+            const opts = { weekday:'short', day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true };
+            liveClock.textContent = now.toLocaleString('en-IN', opts).toUpperCase();
+        }
+
+        function updateNextHoliday(now) {
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            let found = null;
+            for (const h of holidays) {
+                if (h.date >= today && h.date.getDay() !== 0 && h.date.getDay() !== 6) {
+                    found = h;
+                    break;
+                }
+            }
+            if (!found) {
+                nhName.textContent = '🎉 No more holidays!';
+                nhDate.textContent = 'Freedom is near!';
+                nhDays.textContent = '🚀';
+                return;
+            }
+            const dd = Math.floor((found.date - today) / 864e5);
+            nhName.textContent = `${found.emoji} ${found.name}`;
+            nhDate.textContent = found.date.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' });
+            nhDays.textContent = dd === 0 ? '🎉 TODAY!' : `${dd}d`;
+        }
+
+        // ----- render holiday list -----
+        function renderHolidays() {
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const el = $('hList');
+            let html = '', first = true;
+            for (const h of holidays) {
+                if (h.date < today) continue;
+                const dd = Math.floor((h.date - today) / 864e5);
+                const isWknd = h.date.getDay() === 0 || h.date.getDay() === 6;
+                const isNext = first && !isWknd;
+                if (isNext) first = false;
+                html += `<div class="h-item ${isWknd ? 'is-weekend' : ''}">
+                    <span class="h-emoji">${h.emoji}</span>
+                    <div class="h-info">
+                        <div class="h-name">${h.name}</div>
+                        <div class="h-date">${h.date.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' })}</div>
+                    </div>
+                    <span class="h-badge ${isNext ? 'next' : ''}">${dd === 0 ? 'TODAY' : dd+'d'}</span>
+                </div>`;
+            }
+            el.innerHTML = html || '<p style="text-align:center;color:#5b6f8e;padding:12px;">No more holidays — you\'re almost there 🎉</p>';
+        }
+
+        // ----- quotes -----
+        const Q = [
+            ["The only way out is through.", "Robert Frost"],
+            ["Tough times never last, but tough people do.", "Robert H. Schuller"],
+            ["This too shall pass.", "Persian Proverb"],
+            ["Stars can't shine without darkness.", "D.H. Sidebottom"],
+            ["You didn't come this far to only come this far.", "Unknown"],
+            ["The darkest hour has only sixty minutes.", "Morris Mandel"],
+            ["Fall seven times, stand up eight.", "Japanese Proverb"],
+            ["Ek din aayega wo din... jab alarm nahi bajega!", "Your Heart"],
+            ["Sab kuch temporary hai, including CSB Bank!", "Navi Mumbai Wisdom"],
+            ["Your contract has an end date. Your potential doesn't.", "You"],
+            ["Difficult roads often lead to beautiful destinations.", "Zig Ziglar"],
+            ["A river cuts rock not by power but persistence.", "Jim Watkins"],
+            ["Your future self is watching. Make them proud.", "Unknown"],
+            ["Every second on this clock is a second you'll never work again.", "Mathematics"],
+            ["March 31, 2027 is locked and loaded. Keep going!", "Freedom Target"]
+        ];
+
+        function newQuote() {
+            const q = Q[Math.floor(Math.random() * Q.length)];
+            $('tQuote').textContent = `"${q[0]}"`;
+            $('tAuthor').textContent = `— ${q[1]}`;
+            const ticker = $('ticker');
+            ticker.style.transform = 'scale(0.97)';
+            setTimeout(() => ticker.style.transform = '', 120);
+        }
+
+        // ----- CALENDAR with color grading -----
+        let cM = new Date().getMonth(), cY = new Date().getFullYear();
+
+        function chgMonth(d) {
+            cM += d;
+            if (cM > 11) { cM = 0; cY++; }
+            if (cM < 0) { cM = 11; cY--; }
+            renderCal();
+        }
+
+        function renderCal() {
+            const mn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            $('calLbl').textContent = `${mn[cM]} ${cY}`;
+            const grid = $('calGrid');
+            grid.innerHTML = '';
+            ['S','M','T','W','T','F','S'].forEach(d => {
+                const e = document.createElement('div');
+                e.className = 'cal-hdr';
+                e.textContent = d;
+                grid.appendChild(e);
+            });
+            const first = new Date(cY, cM, 1).getDay();
+            const dim = new Date(cY, cM+1, 0).getDate();
+            const now = new Date();
+            for (let i = 0; i < first; i++) {
+                const e = document.createElement('div');
+                e.className = 'cal-day empty';
+                grid.appendChild(e);
+            }
+            for (let d = 1; d <= dim; d++) {
+                const td = new Date(cY, cM, d);
+                const tk = dayKey(td);
+                const nk = dayKey(now);
+                const e = document.createElement('div');
+                e.textContent = d;
+                let cls = 'cal-day';
+
+                // color grading: passed / today / future
+                if (tk === nk) {
+                    cls += ' today';
+                } else if (td < now && td >= START) {
+                    cls += ' past';
+                } else if (td > END) {
+                    cls += ' free';
+                } else if (td > now) {
+                    cls += ' future';
+                }
+
+                // holiday & weekend overlay
+                if (isHol(td)) {
+                    cls += ' holiday';
+                } else if (isWeekend(td)) {
+                    cls += ' weekend';
+                }
+
+                e.className = cls;
+                grid.appendChild(e);
+            }
+        }
+
+        // ----- milestones -----
+        function renderMilestones() {
+            const now = new Date();
+            const total = END - START;
+            const elapsed = now - START;
+            const pct = (elapsed / total) * 100;
+            const milestones = [
+                [10, "10% · First steps 🌱"],[25, "25% · Quarter way 🏃"],
+                [33, "33% · One third ⚡"],[50, "50% · Halfway 🏔️"],
+                [60, "60% · Past the hump 🔥"],[70, "70% · Final stretch 💪"],
+                [75, "75% · Last quarter 🏁"],[80, "80% · Smell freedom 🌊"],
+                [90, "90% · Single digits 🚀"],[95, "95% · SO CLOSE 👑"],
+                [100, "100% · FREEDOM! 🦅"]
+            ];
+            const el = $('mileList');
+            el.innerHTML = '';
+            for (const [p, label] of milestones) {
+                const done = pct >= p;
+                const daysOffset = Math.floor((p / 100) * (total / 864e5));
+                const md = new Date(START.getTime() + daysOffset * 864e5);
+                el.innerHTML += `<div class="mile-item ${done ? 'done' : ''}">
+                    <div class="mile-dot">${done ? '✓' : ''}</div>
+                    <div class="mile-info">
+                        <div class="mile-title">${label}</div>
+                        <div class="mile-date">${md.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })}</div>
+                    </div>
+                    <div class="mile-pct">${done ? 'DONE' : p+'%'}</div>
+                </div>`;
+            }
+        }
+
+        // ----- mood -----
+        function setMood(emoji) {
+            const today = new Date().toDateString();
+            let moods = JSON.parse(localStorage.getItem('csbMood') || '{}');
+            moods[today] = emoji;
+            localStorage.setItem('csbMood', JSON.stringify(moods));
+            document.querySelectorAll('.mood-btn').forEach(b => {
+                b.classList.toggle('sel', b.textContent.trim() === emoji);
+            });
+            renderMood();
+        }
+
+        function renderMood() {
+            const moods = JSON.parse(localStorage.getItem('csbMood') || '{}');
+            const trail = $('moodTrail');
+            trail.innerHTML = '';
+            const today = new Date();
+            for (let i = 29; i >= 0; i--) {
+                const d = new Date(today);
+                d.setDate(d.getDate() - i);
+                const key = d.toDateString();
+                trail.innerHTML += `<span title="${d.toLocaleDateString()}">${moods[key] || '·'}</span>`;
+            }
+            const tm = moods[today.toDateString()];
+            if (tm) {
+                document.querySelectorAll('.mood-btn').forEach(b => {
+                    b.classList.toggle('sel', b.textContent.trim() === tm);
+                });
+            }
+        }
+
+        // ----- fun facts -----
+        function renderFacts() {
+            const now = new Date();
+            const dl = Math.max(0, Math.floor((END - now) / 864e5));
+            const wk = Math.floor(dl * 5 / 7);
+            const facts = [
+                ['🍿', `<strong>${dl * 2}</strong> movies you could watch`],
+                ['🎵', `<strong>${wk * 50}</strong> songs during commute`],
+                ['📱', `<strong>${dl * 96}</strong> phone checks remaining`],
+                ['🌧️', `Only <strong>${Math.max(0, Math.floor(dl/5))}</strong> Mumbai rains to dodge`],
+                ['💤', `<strong>${(dl * 8).toLocaleString()}</strong> hours of sleep until free`],
+                ['📊', `~<strong>${wk}</strong> Excel sheets left`],
+                ['☕', `<strong>${wk * 2}</strong> office coffees remaining`],
+            ];
+            const el = $('funFacts');
+            el.innerHTML = facts.map(f =>
+                `<div class="fact-item"><span class="f-emoji">${f[0]}</span><span class="f-text">${f[1]}</span></div>`
+            ).join('');
+        }
+
+        // ----- init -----
+        function init() {
+            renderHolidays();
+            renderCal();
+            renderMilestones();
+            renderMood();
+            renderFacts();
+            newQuote();
+            updateAll();
+            setInterval(updateAll, 1000);
+            setInterval(renderHolidays, 3600000);
+        }
+
+        init();
+    </script>
 </body>
 </html>
