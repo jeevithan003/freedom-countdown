@@ -13,30 +13,109 @@
         }
 
         body {
-            background: #f4f6fa;
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             color: #1e1e2f;
             min-height: 100vh;
             padding: 16px 12px 40px;
             display: flex;
             justify-content: center;
+            background: #f0f2f8;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(100, 140, 200, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(60, 120, 180, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(40, 100, 160, 0.04) 0%, transparent 70%),
+                linear-gradient(135deg, #e8ecf5 0%, #d5ddee 100%);
+            background-attachment: fixed;
+        }
+
+        /* Subtle animated background overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px),
+                repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 41px);
+            pointer-events: none;
+            animation: bgShift 30s linear infinite;
+        }
+
+        @keyframes bgShift {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 80px 80px, -80px -80px; }
         }
 
         .app {
             max-width: 480px;
             width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Floating orbs for depth */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 0;
+            pointer-events: none;
+            animation: orbFloat 25s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(70, 130, 200, 0.08);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 250px;
+            height: 250px;
+            background: rgba(100, 180, 220, 0.06);
+            bottom: -80px;
+            left: -80px;
+            animation-delay: -8s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(40, 100, 180, 0.05);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -15s;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -40px) scale(1.1); }
+            66% { transform: translate(-20px, 30px) scale(0.9); }
+            100% { transform: translate(20px, -20px) scale(1.05); }
         }
 
         .card {
             background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 28px;
             padding: 20px 18px;
             margin-bottom: 18px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            transition: all 0.1s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
         }
 
         .header {
@@ -48,7 +127,8 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #eef0f5;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
             padding: 6px 16px;
             border-radius: 40px;
             font-size: 0.7rem;
@@ -56,6 +136,7 @@
             letter-spacing: 0.4px;
             color: #3d3d5c;
             margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .bank-badge .dot {
@@ -100,12 +181,14 @@
         .contract-info {
             margin-top: 8px;
             font-size: 0.75rem;
-            background: #e9edf5;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
             display: inline-block;
             padding: 4px 18px;
             border-radius: 30px;
             color: #2a2a44;
             font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .contract-info span {
@@ -124,8 +207,8 @@
         }
 
         .countdown-card {
-            background: linear-gradient(145deg, #ffffff, #f2f5fc);
-            border: 1px solid #dde3ed;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(242, 245, 252, 0.85));
+            border: 1px solid rgba(255, 255, 255, 0.6);
             padding: 24px 12px 16px;
         }
 
@@ -155,11 +238,13 @@
             font-size: 1.9rem;
             color: #1f2b4b;
             line-height: 1.2;
-            background: #eef2f9;
+            background: rgba(238, 242, 249, 0.7);
+            backdrop-filter: blur(4px);
             padding: 6px 0;
             border-radius: 16px;
             transition: all 0.15s;
             letter-spacing: -0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .cd-num.tick {
@@ -168,7 +253,7 @@
 
         @keyframes tickPop {
             0% { transform: scale(1); }
-            40% { transform: scale(1.08); background: #d4def0; }
+            40% { transform: scale(1.08); background: rgba(212, 222, 240, 0.8); }
             100% { transform: scale(1); }
         }
 
@@ -195,7 +280,7 @@
 
         .ring-bg {
             fill: none;
-            stroke: #d8e0ec;
+            stroke: rgba(216, 224, 236, 0.5);
             stroke-width: 3.5;
         }
 
@@ -234,18 +319,20 @@
             font-weight: 500;
             color: #3d5a78;
             margin-top: 8px;
-            background: #e9eff8;
+            background: rgba(233, 239, 248, 0.7);
+            backdrop-filter: blur(4px);
             padding: 5px 12px;
             border-radius: 30px;
             display: inline-block;
             margin-left: auto;
             margin-right: auto;
             width: fit-content;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .progress-card {
-            background: #f0f4fe;
-            border: 1px solid #d3dfef;
+            background: rgba(240, 244, 254, 0.7);
+            border: 1px solid rgba(211, 223, 239, 0.3);
         }
 
         .progress-header {
@@ -270,7 +357,7 @@
 
         .progress-track {
             height: 12px;
-            background: #d7e1ef;
+            background: rgba(215, 225, 239, 0.5);
             border-radius: 40px;
             overflow: hidden;
             position: relative;
@@ -302,8 +389,8 @@
         }
 
         .holiday-card {
-            background: #e9f0fa;
-            border: 1px solid #c7d8ed;
+            background: rgba(233, 240, 250, 0.7);
+            border: 1px solid rgba(199, 216, 237, 0.3);
             border-radius: 24px;
             padding: 16px 18px;
             display: flex;
@@ -337,12 +424,14 @@
         }
 
         .hc-days {
-            background: #d4e0f2;
+            background: rgba(212, 224, 242, 0.7);
+            backdrop-filter: blur(4px);
             padding: 6px 16px;
             border-radius: 40px;
             font-weight: 700;
             font-size: 0.85rem;
             color: #1f3b5c;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .stats-grid {
@@ -353,12 +442,19 @@
         }
 
         .stat {
-            background: #ffffffcc;
-            backdrop-filter: blur(2px);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
             border-radius: 18px;
             padding: 14px 6px;
             text-align: center;
-            border: 1px solid #e3eaf5;
+            border: 1px solid rgba(227, 234, 245, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .stat:hover {
+            background: rgba(255, 255, 255, 0.85);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .stat-icon {
@@ -391,8 +487,9 @@
         }
 
         .ticker {
-            background: #eef3fc;
-            border: 1px solid #d5e1f0;
+            background: rgba(238, 243, 252, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(213, 225, 240, 0.3);
             border-radius: 24px;
             padding: 20px 16px;
             text-align: center;
@@ -403,7 +500,7 @@
 
         .ticker:active {
             transform: scale(0.97);
-            background: #e3ebf7;
+            background: rgba(227, 235, 247, 0.8);
         }
 
         .ticker-quote {
@@ -451,7 +548,7 @@
             width: 4px;
         }
         .h-list::-webkit-scrollbar-thumb {
-            background: #c5d4e8;
+            background: rgba(197, 212, 232, 0.5);
             border-radius: 12px;
         }
 
@@ -459,7 +556,7 @@
             display: flex;
             align-items: center;
             padding: 8px 4px;
-            border-bottom: 1px solid #e8eef8;
+            border-bottom: 1px solid rgba(232, 238, 248, 0.5);
             gap: 10px;
         }
 
@@ -493,13 +590,14 @@
             font-weight: 700;
             padding: 3px 12px;
             border-radius: 40px;
-            background: #dee8f5;
+            background: rgba(222, 232, 245, 0.7);
             color: #2d4a70;
             flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .h-badge.next {
-            background: #c5d8f0;
+            background: rgba(197, 216, 240, 0.8);
             color: #1f3d6b;
         }
 
@@ -507,7 +605,6 @@
             opacity: 0.4;
         }
 
-        /* ----- CALENDAR (color grading) ----- */
         .cal-nav {
             display: flex;
             justify-content: space-between;
@@ -516,8 +613,9 @@
         }
 
         .cal-nav button {
-            background: #eef3fc;
-            border: 1px solid #d6e2f0;
+            background: rgba(238, 243, 252, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(214, 226, 240, 0.3);
             color: #1f324f;
             width: 36px;
             height: 36px;
@@ -529,7 +627,7 @@
         }
 
         .cal-nav button:active {
-            background: #d5e1f0;
+            background: rgba(213, 225, 240, 0.8);
         }
 
         .cal-month {
@@ -564,16 +662,19 @@
             background: transparent;
             color: #1f2f4a;
             position: relative;
-            transition: 0.1s;
+            transition: 0.15s ease;
+        }
+
+        .cal-day:hover {
+            transform: scale(1.05);
         }
 
         .cal-day.empty {
             background: transparent;
         }
 
-        /* color grading for passed / remaining */
         .cal-day.past {
-            background: #c9d8e8;
+            background: rgba(201, 216, 232, 0.5);
             color: #1a314b;
         }
 
@@ -581,31 +682,31 @@
             background: #1f3a5e;
             color: #fff;
             font-weight: 700;
-            box-shadow: 0 2px 8px rgba(26, 55, 98, 0.25);
+            box-shadow: 0 2px 12px rgba(26, 55, 98, 0.3);
         }
 
         .cal-day.future {
-            background: #eef3fc;
+            background: rgba(238, 243, 252, 0.5);
             color: #2f4a6b;
         }
 
         .cal-day.weekend {
-            background: #e2e8f2;
+            background: rgba(226, 232, 242, 0.5);
             color: #4e6180;
         }
 
         .cal-day.holiday {
-            background: #f7d9d0;
+            background: rgba(247, 217, 208, 0.6);
             color: #964b33;
         }
 
         .cal-day.past.holiday {
-            background: #d4bdb6;
+            background: rgba(212, 189, 182, 0.5);
             color: #6d3f2e;
         }
 
         .cal-day.free {
-            background: #cfe2d8;
+            background: rgba(207, 226, 216, 0.5);
             color: #1a6040;
         }
 
@@ -636,7 +737,7 @@
             display: flex;
             align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid #e3eaf5;
+            border-bottom: 1px solid rgba(227, 234, 245, 0.5);
             gap: 10px;
         }
 
@@ -648,7 +749,7 @@
             width: 28px;
             height: 28px;
             border-radius: 30px;
-            background: #e8eff9;
+            background: rgba(232, 239, 249, 0.7);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -658,12 +759,12 @@
         }
 
         .mile-item.done .mile-dot {
-            background: #cfe2d8;
+            background: rgba(207, 226, 216, 0.7);
             color: #1e6b48;
         }
 
         .mile-item:not(.done) .mile-dot {
-            background: #eef3fc;
+            background: rgba(238, 243, 252, 0.7);
             color: #60769b;
         }
 
@@ -712,15 +813,20 @@
             padding: 6px 8px;
             border-radius: 40px;
             border: 2px solid transparent;
-            background: #f0f4fc;
+            background: rgba(240, 244, 252, 0.7);
+            backdrop-filter: blur(4px);
             cursor: pointer;
-            transition: all 0.1s;
+            transition: all 0.15s ease;
             line-height: 1;
+        }
+
+        .mood-btn:hover {
+            transform: scale(1.1);
         }
 
         .mood-btn:active, .mood-btn.sel {
             border-color: #2f4f7a;
-            background: #e0eaf8;
+            background: rgba(224, 234, 248, 0.8);
             transform: scale(1.1);
         }
 
@@ -742,7 +848,7 @@
             align-items: center;
             gap: 12px;
             padding: 6px 0;
-            border-bottom: 1px solid #e6edf8;
+            border-bottom: 1px solid rgba(230, 237, 248, 0.5);
         }
 
         .fact-item:last-child {
@@ -768,7 +874,7 @@
             padding: 24px 0 8px;
             font-size: 0.7rem;
             color: #687b9e;
-            border-top: 1px solid #d8e2f0;
+            border-top: 1px solid rgba(216, 226, 240, 0.3);
             margin-top: 12px;
         }
 
@@ -787,12 +893,12 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: #f5f7fc;
+            background: rgba(245, 247, 252, 0.95);
+            backdrop-filter: blur(20px);
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 999;
-            backdrop-filter: blur(6px);
         }
 
         .celebrate.on {
@@ -831,8 +937,12 @@
     </style>
 </head>
 <body>
-    <div class="app">
+    <!-- Floating orbs for depth -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
+    <div class="app">
         <!-- Header -->
         <div class="header">
             <div class="bank-badge">
@@ -917,7 +1027,7 @@
             <div class="h-list" id="hList"></div>
         </div>
 
-        <!-- Calendar (color grading) -->
+        <!-- Calendar -->
         <div class="card">
             <div class="section-title"><span class="emoji">📅</span> Calendar</div>
             <div class="cal-nav">
@@ -927,11 +1037,11 @@
             </div>
             <div class="cal-grid" id="calGrid"></div>
             <div class="cal-legend">
-                <span><span class="leg-dot" style="background:#c9d8e8;"></span> passed</span>
+                <span><span class="leg-dot" style="background:rgba(201, 216, 232, 0.7);"></span> passed</span>
                 <span><span class="leg-dot" style="background:#1f3a5e;"></span> today</span>
-                <span><span class="leg-dot" style="background:#eef3fc;border:1px solid #b0c4db;"></span> remaining</span>
-                <span><span class="leg-dot" style="background:#f7d9d0;"></span> holiday</span>
-                <span><span class="leg-dot" style="background:#e2e8f2;"></span> weekend</span>
+                <span><span class="leg-dot" style="background:rgba(238, 243, 252, 0.7);border:1px solid rgba(176, 196, 219, 0.3);"></span> remaining</span>
+                <span><span class="leg-dot" style="background:rgba(247, 217, 208, 0.7);"></span> holiday</span>
+                <span><span class="leg-dot" style="background:rgba(226, 232, 242, 0.7);"></span> weekend</span>
             </div>
         </div>
 
